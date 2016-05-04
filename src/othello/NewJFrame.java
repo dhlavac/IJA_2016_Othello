@@ -23,6 +23,8 @@ public class NewJFrame extends javax.swing.JFrame {
     public NewJFrame() {
         initComponents();
     }
+    
+    public int sizeForGameBoard;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -439,8 +441,9 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void PlayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PlayButtonActionPerformed
         if ((PlayerComputer.isSelected() || PlayerHuman.isSelected()) && (BlackStone.isSelected() || WhiteStone.isSelected()) && (!Player1Name.getText().equals("") && !Player2Name.getText().equals("") ) ) {
+            
             close();
-            GameBoard NewBoard = new GameBoard();
+            GameBoard NewBoard = new GameBoard(this.sizeForGameBoard);
             NewBoard.setVisible(true);
         }
         else {
