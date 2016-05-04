@@ -5,6 +5,8 @@
  */
 package othello;
 
+import java.awt.Toolkit;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -69,7 +71,7 @@ public class NewJFrame extends javax.swing.JFrame {
         MenuItemLoad = new javax.swing.JMenuItem();
         MenuItemExit = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.CardLayout());
 
         NewGameButton.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -437,7 +439,9 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void PlayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PlayButtonActionPerformed
         if ((PlayerComputer.isSelected() || PlayerHuman.isSelected()) && (BlackStone.isSelected() || WhiteStone.isSelected()) && (!Player1Name.getText().equals("") && !Player2Name.getText().equals("") ) ) {
-            
+            close();
+            GameBoard NewBoard = new GameBoard();
+            NewBoard.setVisible(true);
         }
         else {
             JOptionPane.showMessageDialog(null, "Error you must choose all options");
@@ -529,4 +533,9 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel StoneFreezingLabel;
     private javax.swing.JRadioButton WhiteStone;
     // End of variables declaration//GEN-END:variables
+
+    public void close() {
+        WindowEvent winClosingEvent = new WindowEvent( this, WindowEvent.WINDOW_CLOSING );
+    Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent( winClosingEvent );
+    }
 }
