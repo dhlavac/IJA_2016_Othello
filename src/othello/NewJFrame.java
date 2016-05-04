@@ -5,9 +5,12 @@
  */
 package othello;
 
+import game.Game;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -25,6 +28,7 @@ public class NewJFrame extends javax.swing.JFrame {
     }
     
     public int sizeForGameBoard;
+    String loadedFile;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -255,7 +259,6 @@ public class NewJFrame extends javax.swing.JFrame {
                                 .addGroup(NewGameMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(ColorOfPlayerLabel)
                                     .addComponent(StoneFreezingLabel))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(NewGameMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(NewGameMenuLayout.createSequentialGroup()
                                         .addGroup(NewGameMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -318,6 +321,11 @@ public class NewJFrame extends javax.swing.JFrame {
 
         LoadButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         LoadButton.setText("Load");
+        LoadButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                LoadButtonMouseClicked(evt);
+            }
+        });
 
         FileToLoad.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         FileToLoad.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -458,7 +466,25 @@ public class NewJFrame extends javax.swing.JFrame {
         File file = LoadChooser.getSelectedFile();
         String filename = file.getAbsolutePath();
         FileToLoad.setText(filename);
+        this.loadedFile = filename;
     }//GEN-LAST:event_FileToLoadMouseClicked
+
+    private void LoadButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoadButtonMouseClicked
+        Game loadedGame = null;
+        try
+        {
+            FileInputStream fin = new FileInputStream(this.loadedFile);
+            ObjectInputStream ois = new ObjectInputStream(fin);
+            loadedGame = (Game)ois.readObject();
+            ois.close();
+        }
+        catch(Exception ex)
+        {
+            ex.printStackTrace();
+        }
+        
+        System.out.println(loadedGame.tmp);  // test na load
+    }//GEN-LAST:event_LoadButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -487,6 +513,30 @@ public class NewJFrame extends javax.swing.JFrame {
         }
         //</editor-fold>
 
+        // ---------------------------------------------------------------------
+        // - Docasny save ------------------------------------------------------
+        // ---------------------------------------------------------------------
+        /*Rules rRules = new ReversiRules(8);
+        Board board = new Board(rRules);
+        Game game = new Game(board);
+        game.tmp = "ahooj";
+        
+        JFileChooser f = new JFileChooser();
+        f.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        f.showSaveDialog(null);
+
+        try {
+            FileOutputStream fout = new FileOutputStream(f.getSelectedFile());
+            ObjectOutputStream oos = new ObjectOutputStream(fout);
+            oos.writeObject(game);
+        }
+        catch(Exception ex)
+        {
+
+        }*/
+        // - Konec docasneho save ----------------------------------------------
+        
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

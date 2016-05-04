@@ -1,9 +1,11 @@
 package board;
 
+import java.io.Serializable;
+
 /**
  * Created by xduris04 and xhlava42 on 12.3.2016.
  */
-public class Board
+public class Board implements Serializable
 {
     private int size;
     public static Field[][] field;

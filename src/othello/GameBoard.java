@@ -5,6 +5,14 @@
  */
 package othello;
 
+import board.Board;
+import board.Rules;
+import game.Game;
+import game.ReversiRules;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import javax.swing.JFileChooser;
+
 /**
  *
  * @author Dominik
@@ -44,6 +52,11 @@ public class GameBoard extends javax.swing.JFrame {
         BoardGameUndoButton.setText("Undo");
 
         BoardGameSaveButton.setText("Save");
+        BoardGameSaveButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BoardGameSaveButtonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -108,6 +121,27 @@ public class GameBoard extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BoardGameSaveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BoardGameSaveButtonMouseClicked
+        Rules rRules = new ReversiRules(8); // zmazat potom
+        Board board = new Board(rRules);    // zmazat
+        Game game = new Game(board);        // tu priradime hru co chceme ulozit
+        game.tmp = "ahooj";                 // zmazat, len na kontrolu
+        
+        JFileChooser f = new JFileChooser();
+        f.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        f.showSaveDialog(null);
+
+        try {
+            FileOutputStream fout = new FileOutputStream(f.getSelectedFile());
+            ObjectOutputStream oos = new ObjectOutputStream(fout);
+            oos.writeObject(game);
+        }
+        catch(Exception ex)
+        {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_BoardGameSaveButtonMouseClicked
 
     
   

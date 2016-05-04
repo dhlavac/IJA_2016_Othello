@@ -1,12 +1,13 @@
 package game;
 
 import board.*;
+import java.io.Serializable;
 
 
 /**
  * Created by xduris04 and xhlava42 on 3.4.2016.
  */
-public class ReversiRules implements Rules
+public class ReversiRules implements Rules, Serializable
 {
     int size;
 

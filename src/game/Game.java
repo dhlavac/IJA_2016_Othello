@@ -1,16 +1,18 @@
 package game;
 
 import board.Board;
+import java.io.Serializable;
 
 /**
  * Created by xduris04 and xhlava42 on 3.4.2016.
  */
-public class Game
+public class Game implements Serializable
 {
     Board board;
     boolean whichPlayer = false;
     Player blackPlayer;
     Player whitePlayer;
+    public String tmp;  // docasne pre save  VYMAZAT
 
     public Game(Board board)
     {

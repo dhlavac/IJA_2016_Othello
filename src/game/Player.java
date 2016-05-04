@@ -1,6 +1,7 @@
 package game;
 
 import board.*;
+import java.io.Serializable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 /**
  * Created by xduris04 and xhlava42 on 3.4.2016.
  */
-public class Player
+public class Player implements Serializable
 {
     boolean isWhite;
     int disksCount;

@@ -1,9 +1,12 @@
 package board;
 
+import java.io.Serializable;
+
 /**
  * Created by xduris04 and xhlava42 on 12.3.2016.
  */
-public class Disk {
+public class Disk implements Serializable
+{
     private boolean isWhite;
 
     public Disk(boolean isWhite)
