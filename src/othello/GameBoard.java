@@ -5,10 +5,8 @@
  */
 package othello;
 
-import board.Board;
-import board.Rules;
 import game.Game;
-import game.ReversiRules;
+import game.Save;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import javax.swing.JFileChooser;
@@ -25,9 +23,9 @@ public class GameBoard extends javax.swing.JFrame {
     public int size; 
     Game game;
     
-    public GameBoard(int size, Game game) {
+    public GameBoard(Game game) {
         initComponents();
-        this.size = size;
+        this.size = game.getBoard().getSize();
         this.game = game;
     }
 
@@ -131,19 +129,21 @@ public class GameBoard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BoardGameSaveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BoardGameSaveButtonMouseClicked
-        Rules rRules = new ReversiRules(8); // zmazat potom
+        /*Rules rRules = new ReversiRules(8); // zmazat potom
         Board board = new Board(rRules);    // zmazat
         Game game = new Game(board);        // tu priradime hru co chceme ulozit
-        game.tmp = "ahooj";                 // zmazat, len na kontrolu
+        game.tmp = "ahooj";                 // zmazat, len na kontrolu*/
         
         JFileChooser f = new JFileChooser();
         f.setFileSelectionMode(JFileChooser.FILES_ONLY);
         f.showSaveDialog(null);
-
+        this.game.tmp = "serus";
+        Save saveGame = new Save(this.game);
+        
         try {
             FileOutputStream fout = new FileOutputStream(f.getSelectedFile());
             ObjectOutputStream oos = new ObjectOutputStream(fout);
-            oos.writeObject(game);
+            oos.writeObject(saveGame);
         }
         catch(Exception ex)
         {
@@ -155,6 +155,8 @@ public class GameBoard extends javax.swing.JFrame {
     // nemal som to kam jebnut, tak UNDO zatial bude testovat ci su fakt v strede tie kamene :D pre 8x8
     // 3:26 - fakt su :)
     private void BoardGameUndoButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BoardGameUndoButtonMouseClicked
+        //System.out.println(this.game.tmp);
+        
         if (this.game.getBoard().getField(4, 4).getDisk() != null)
         {
             String color = "";
@@ -213,7 +215,7 @@ public class GameBoard extends javax.swing.JFrame {
         else
         {
             System.out.println("Neni tam kamen");
-        } 
+        }
     }//GEN-LAST:event_BoardGameUndoButtonMouseClicked
 
     

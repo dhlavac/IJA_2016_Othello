@@ -6,9 +6,11 @@
 package othello;
 
 import board.Board;
+import board.Disk;
 import game.Game;
 import game.Player;
 import game.ReversiRules;
+import game.Save;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -466,7 +468,7 @@ public class NewJFrame extends javax.swing.JFrame {
             game.addPlayer(player1);
             game.addPlayer(player2);
 
-            GameBoard NewBoard = new GameBoard(getSizeForBoard(), game);    // tu posielas uz rovno nainicializovany game aj s kamenmi v strede
+            GameBoard NewBoard = new GameBoard(game);    // tu posielas uz rovno nainicializovany game aj s kamenmi v strede
             NewBoard.setVisible(true);
         }
         else {
@@ -474,7 +476,7 @@ public class NewJFrame extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_PlayButtonActionPerformed
-
+    
     private void FileToLoadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FileToLoadMouseClicked
         JFileChooser LoadChooser = new JFileChooser();
         LoadChooser.showOpenDialog(null);
@@ -485,12 +487,14 @@ public class NewJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_FileToLoadMouseClicked
 
     private void LoadButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoadButtonMouseClicked
-        Game loadedGame = null;
+        Save loadedSave = null;
+        close();
+        
         try
         {
             FileInputStream fin = new FileInputStream(this.loadedFile);
             ObjectInputStream ois = new ObjectInputStream(fin);
-            loadedGame = (Game)ois.readObject();
+            loadedSave = (Save)ois.readObject();
             ois.close();
         }
         catch(Exception ex)
@@ -498,7 +502,22 @@ public class NewJFrame extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         
-        System.out.println(loadedGame.tmp);  // test na load
+        Game loadedGame = new Game(loadedSave.board);
+        loadedGame.whitePlayer = loadedSave.whitePlayer;
+        loadedGame.whichPlayer = loadedSave.whichPlayer;
+        loadedGame.blackPlayer = loadedSave.blackPlayer;
+        loadedGame.board = new Board(loadedGame.board.getRules());
+        
+        for (int i = 0; i < loadedSave.board.getSize(); i++)
+            for (int j = 0; j < loadedSave.board.getSize(); j++)
+            {
+                loadedGame.getBoard().getField(i + 1, j + 1).putDisk(loadedSave.fields[i][j].getDisk());
+            }
+        
+        // System.out.println(loadedGame.tmp);
+        GameBoard NewBoard = new GameBoard(loadedGame);    // tu posielas uz rovno nainicializovany game aj s kamenmi v strede
+        NewBoard.setVisible(true);
+        // System.out.println(loadedGame.tmp);  // test na load
     }//GEN-LAST:event_LoadButtonMouseClicked
 
     private int getSizeForBoard()

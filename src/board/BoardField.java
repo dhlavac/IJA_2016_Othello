@@ -7,7 +7,7 @@ import java.util.Arrays;
  * Created by xduris04 and xhlava42 on 12.3.2016.
  */
 public class BoardField implements Field, Serializable {
-    Disk disk;
+    public Disk disk;
     private int row, col;
     final Field[] fieldsAround = new Field[8];
 

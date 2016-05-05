@@ -8,10 +8,10 @@ import java.io.Serializable;
  */
 public class Game implements Serializable
 {
-    Board board;
-    boolean whichPlayer = false;
-    Player blackPlayer;
-    Player whitePlayer;
+    public Board board;
+    public boolean whichPlayer = false;
+    public Player blackPlayer;
+    public Player whitePlayer;
     public String tmp;  // docasne pre save  VYMAZAT
 
     public Game(Board board)

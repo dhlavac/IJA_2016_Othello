@@ -104,7 +104,6 @@ public class Player implements Serializable
             Board.field[(board.getSize()/2)][(board.getSize()/2) + 1].putDisk(new Disk(isWhite));
             Board.field[(board.getSize()/2) + 1][(board.getSize()/2)].putDisk(new Disk(isWhite));
         }
-
     }
 
     public String toString()

@@ -26,7 +26,7 @@ public class ReversiRules implements Rules, Serializable
         return (this.size * this.size) / 2;
     }
 
-    public Field createField(int row, int col)
+    public BoardField createField(int row, int col)
     {
         BoardField boardField = new BoardField(row, col);
         return boardField;
