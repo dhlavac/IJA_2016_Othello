@@ -513,30 +513,6 @@ public class NewJFrame extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        // ---------------------------------------------------------------------
-        // - Docasny save ------------------------------------------------------
-        // ---------------------------------------------------------------------
-        /*Rules rRules = new ReversiRules(8);
-        Board board = new Board(rRules);
-        Game game = new Game(board);
-        game.tmp = "ahooj";
-        
-        JFileChooser f = new JFileChooser();
-        f.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        f.showSaveDialog(null);
-
-        try {
-            FileOutputStream fout = new FileOutputStream(f.getSelectedFile());
-            ObjectOutputStream oos = new ObjectOutputStream(fout);
-            oos.writeObject(game);
-        }
-        catch(Exception ex)
-        {
-
-        }*/
-        // - Konec docasneho save ----------------------------------------------
-        
-        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
