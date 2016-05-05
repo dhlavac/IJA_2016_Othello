@@ -5,7 +5,10 @@
  */
 package othello;
 
+import board.Board;
 import game.Game;
+import game.Player;
+import game.ReversiRules;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -27,7 +30,6 @@ public class NewJFrame extends javax.swing.JFrame {
         initComponents();
     }
     
-    public int sizeForGameBoard;
     String loadedFile;
 
     /**
@@ -451,7 +453,20 @@ public class NewJFrame extends javax.swing.JFrame {
         if ((PlayerComputer.isSelected() || PlayerHuman.isSelected()) && (BlackStone.isSelected() || WhiteStone.isSelected()) && (!Player1Name.getText().equals("") && !Player2Name.getText().equals("") ) ) {
             
             close();
-            GameBoard NewBoard = new GameBoard(this.sizeForGameBoard);
+            ReversiRules rules = new ReversiRules(getSizeForBoard());   // mozno + 2
+            Board board = new Board(rules);
+            Game game = new Game(board);
+            
+            Player player1 = new Player(true);  // biely     
+            Player player2 = new Player(false);  // cierny
+            
+            player1.init(board);
+            player2.init(board);
+
+            game.addPlayer(player1);
+            game.addPlayer(player2);
+
+            GameBoard NewBoard = new GameBoard(getSizeForBoard(), game);    // tu posielas uz rovno nainicializovany game aj s kamenmi v strede
             NewBoard.setVisible(true);
         }
         else {
@@ -486,6 +501,20 @@ public class NewJFrame extends javax.swing.JFrame {
         System.out.println(loadedGame.tmp);  // test na load
     }//GEN-LAST:event_LoadButtonMouseClicked
 
+    private int getSizeForBoard()
+    {
+        if (RadioButtonSize6.isSelected())
+            return 6;
+        else if (RadioButtonSize8.isSelected())
+            return 8;
+        else if (RadioButtonSize10.isSelected())
+            return 10;
+        else if (RadioButtonSize12.isSelected())
+            return 12;
+        
+        return 8;
+    }
+    
     /**
      * @param args the command line arguments
      */

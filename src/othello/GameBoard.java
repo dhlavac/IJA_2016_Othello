@@ -23,9 +23,12 @@ public class GameBoard extends javax.swing.JFrame {
      * Creates new form GameBoard
      */
     public int size; 
-    public GameBoard(int size) {
+    Game game;
+    
+    public GameBoard(int size, Game game) {
         initComponents();
         this.size = size;
+        this.game = game;
     }
 
     /**
@@ -50,6 +53,11 @@ public class GameBoard extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         BoardGameUndoButton.setText("Undo");
+        BoardGameUndoButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BoardGameUndoButtonMouseClicked(evt);
+            }
+        });
 
         BoardGameSaveButton.setText("Save");
         BoardGameSaveButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -142,6 +150,71 @@ public class GameBoard extends javax.swing.JFrame {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_BoardGameSaveButtonMouseClicked
+
+    
+    // nemal som to kam jebnut, tak UNDO zatial bude testovat ci su fakt v strede tie kamene :D pre 8x8
+    // 3:26 - fakt su :)
+    private void BoardGameUndoButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BoardGameUndoButtonMouseClicked
+        if (this.game.getBoard().getField(4, 4).getDisk() != null)
+        {
+            String color = "";
+            if (this.game.getBoard().getField(4, 4).getDisk().isWhite())
+                color = "biela";
+            else
+                color = "cierna";
+            
+            System.out.println("[4][4]: " + color);
+        }
+        else
+        {
+            System.out.println("Neni tam kamen");
+        }  
+        
+        if (this.game.getBoard().getField(4, 5).getDisk() != null)
+        {
+            String color = "";
+            if (this.game.getBoard().getField(4, 5).getDisk().isWhite())
+                color = "biela";
+            else
+                color = "cierna";
+            
+            System.out.println("[4][5]: " + color);
+        }
+        else
+        {
+            System.out.println("Neni tam kamen");
+        } 
+        
+        if (this.game.getBoard().getField(5, 4).getDisk() != null)
+        {
+            String color = "";
+            if (this.game.getBoard().getField(5, 4).getDisk().isWhite())
+                color = "biela";
+            else
+                color = "cierna";
+            
+            System.out.println("[5][4]: " + color);
+        }
+        else
+        {
+            System.out.println("Neni tam kamen");
+        } 
+        
+        if (this.game.getBoard().getField(5, 5).getDisk() != null)
+        {
+            String color = "";
+            if (this.game.getBoard().getField(5, 5).getDisk().isWhite())
+                color = "biela";
+            else
+                color = "cierna";
+            
+            System.out.println("[5][5]: " + color);
+        }
+        else
+        {
+            System.out.println("Neni tam kamen");
+        } 
+    }//GEN-LAST:event_BoardGameUndoButtonMouseClicked
 
     
   

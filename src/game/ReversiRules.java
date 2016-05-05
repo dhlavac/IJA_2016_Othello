@@ -14,7 +14,6 @@ public class ReversiRules implements Rules, Serializable
     public ReversiRules(int size)
     {
         this.size = size;
-
     }
 
     public int getSize()
