@@ -7,9 +7,19 @@ package othello;
 
 import game.Game;
 import game.Save;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridLayout;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
 
 /**
  *
@@ -22,11 +32,13 @@ public class GameBoard extends javax.swing.JFrame {
      */
     public int size; 
     Game game;
+    JPanel boardPanel;
     
     public GameBoard(Game game) {
         initComponents();
         this.size = game.getBoard().getSize();
         this.game = game;
+        initializeGui();
     }
 
     /**
@@ -40,7 +52,7 @@ public class GameBoard extends javax.swing.JFrame {
 
         BoardGameUndoButton = new javax.swing.JButton();
         BoardGameSaveButton = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        PlayingBoard = new javax.swing.JPanel();
         GameBoardMenuBar = new javax.swing.JMenuBar();
         GameBoardMenuFile = new javax.swing.JMenu();
         BoardGameMenuItemNewGame = new javax.swing.JMenuItem();
@@ -64,16 +76,8 @@ public class GameBoard extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 801, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 673, Short.MAX_VALUE)
-        );
+        PlayingBoard.setPreferredSize(new java.awt.Dimension(1000, 1000));
+        PlayingBoard.setLayout(new java.awt.GridBagLayout());
 
         GameBoardMenuFile.setText("File");
 
@@ -102,9 +106,9 @@ public class GameBoard extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
+                .addComponent(PlayingBoard, javax.swing.GroupLayout.PREFERRED_SIZE, 849, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(BoardGameSaveButton, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
                     .addComponent(BoardGameUndoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -120,9 +124,9 @@ public class GameBoard extends javax.swing.JFrame {
                         .addGap(118, 118, 118)
                         .addComponent(BoardGameSaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(39, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(PlayingBoard, javax.swing.GroupLayout.PREFERRED_SIZE, 716, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
@@ -151,6 +155,29 @@ public class GameBoard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BoardGameSaveButtonMouseClicked
 
+    
+    public void initializeGui() {
+
+        GridBagConstraints box = new GridBagConstraints();
+        for(int row = 0; row < size; row++) {
+            for(int col = 0; col < size; col++) {
+                JButton cell = new JButton();
+                cell.setBackground(Color.gray);
+                cell.setPreferredSize(new Dimension(50, 50));
+                
+                box.fill = GridBagConstraints.HORIZONTAL;
+                box.gridx = row;
+                box.gridy = col;
+                PlayingBoard.add(cell,box);
+                
+                /*cell.setSize(70, 70);
+                cell.setBackground(new Color(188, 222, 255));
+                cell.setBorder(BorderFactory.createLineBorder(Color.gray));
+                boardPanel.add(cell);*/
+            }
+        }
+       
+    }
     
     // nemal som to kam jebnut, tak UNDO zatial bude testovat ci su fakt v strede tie kamene :D pre 8x8
     // 3:26 - fakt su :)
@@ -230,6 +257,6 @@ public class GameBoard extends javax.swing.JFrame {
     private javax.swing.JButton BoardGameUndoButton;
     private javax.swing.JMenuBar GameBoardMenuBar;
     private javax.swing.JMenu GameBoardMenuFile;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel PlayingBoard;
     // End of variables declaration//GEN-END:variables
 }
