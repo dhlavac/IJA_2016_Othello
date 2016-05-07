@@ -12,7 +12,6 @@ public class Game implements Serializable
     public boolean whichPlayer = false;
     public Player blackPlayer;
     public Player whitePlayer;
-    public String tmp;  // docasne pre save  VYMAZAT
 
     public Game(Board board)
     {

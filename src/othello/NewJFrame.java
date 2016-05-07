@@ -184,6 +184,7 @@ public class NewJFrame extends javax.swing.JFrame {
 
         RadioButtonGroupPlayerSelect.add(PlayerHuman);
         PlayerHuman.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        PlayerHuman.setSelected(true);
         PlayerHuman.setText("Player");
         PlayerHuman.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -207,7 +208,7 @@ public class NewJFrame extends javax.swing.JFrame {
         Player2Name.setEnabled(false);
 
         ColorOfPlayerLabel.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        ColorOfPlayerLabel.setText("Color of the first player");
+        ColorOfPlayerLabel.setText("First to act");
 
         RadioButtonGroupPlayerColor.add(BlackStone);
         BlackStone.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
@@ -215,6 +216,7 @@ public class NewJFrame extends javax.swing.JFrame {
 
         RadioButtonGroupPlayerColor.add(WhiteStone);
         WhiteStone.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        WhiteStone.setSelected(true);
         WhiteStone.setText("White");
 
         StoneFreezingLabel.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
@@ -279,7 +281,7 @@ public class NewJFrame extends javax.swing.JFrame {
                     .addGroup(NewGameMenuLayout.createSequentialGroup()
                         .addGap(176, 176, 176)
                         .addComponent(PlayButton, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
         NewGameMenuLayout.setVerticalGroup(
             NewGameMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -317,6 +319,8 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addComponent(PlayButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36))
         );
+
+        ColorOfPlayerLabel.getAccessibleContext().setAccessibleName("Color of first player");
 
         getContentPane().add(NewGameMenu, "card3");
 

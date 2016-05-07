@@ -5,21 +5,22 @@
  */
 package othello;
 
+import game.Cell;
 import game.Game;
+import game.Player;
 import game.Save;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
-import java.awt.GridLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.TitledBorder;
 
 /**
  *
@@ -33,6 +34,8 @@ public class GameBoard extends javax.swing.JFrame {
     public int size; 
     Game game;
     JPanel boardPanel;
+    List<Cell> cellList = new ArrayList<Cell>();
+    Stack gameStack = new Stack<Game>();
     
     public GameBoard(Game game) {
         initComponents();
@@ -77,6 +80,11 @@ public class GameBoard extends javax.swing.JFrame {
         });
 
         PlayingBoard.setPreferredSize(new java.awt.Dimension(1000, 1000));
+        PlayingBoard.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PlayingBoardMouseClicked(evt);
+            }
+        });
         PlayingBoard.setLayout(new java.awt.GridBagLayout());
 
         GameBoardMenuFile.setText("File");
@@ -108,7 +116,7 @@ public class GameBoard extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(PlayingBoard, javax.swing.GroupLayout.PREFERRED_SIZE, 849, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(BoardGameSaveButton, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
                     .addComponent(BoardGameUndoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -126,7 +134,7 @@ public class GameBoard extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(PlayingBoard, javax.swing.GroupLayout.PREFERRED_SIZE, 716, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
 
         pack();
@@ -141,7 +149,6 @@ public class GameBoard extends javax.swing.JFrame {
         JFileChooser f = new JFileChooser();
         f.setFileSelectionMode(JFileChooser.FILES_ONLY);
         f.showSaveDialog(null);
-        this.game.tmp = "serus";
         Save saveGame = new Save(this.game);
         
         try {
@@ -157,19 +164,45 @@ public class GameBoard extends javax.swing.JFrame {
 
     
     public void initializeGui() {
-
         GridBagConstraints box = new GridBagConstraints();
         for(int row = 0; row < size; row++) {
             for(int col = 0; col < size; col++) {
-                JButton cell = new JButton();
-                cell.setBackground(Color.gray);
+                Cell cell = new Cell(game, row, col);
+                cell.setBackground(Color.green);
                 cell.setPreferredSize(new Dimension(50, 50));
                 
                 box.fill = GridBagConstraints.HORIZONTAL;
                 box.gridx = row;
                 box.gridy = col;
-                PlayingBoard.add(cell,box);
                 
+                final int tmpRow = row + 1;
+                final int tmpCol = col + 1;
+
+                cell.addMouseListener(new MouseListener() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {                       
+                        cellClicked(game, tmpRow, tmpCol);
+                    }
+
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                    }
+                });
+                
+                PlayingBoard.add(cell, box);
+                cellList.add(cell);
                 /*cell.setSize(70, 70);
                 cell.setBackground(new Color(188, 222, 255));
                 cell.setBorder(BorderFactory.createLineBorder(Color.gray));
@@ -178,72 +211,40 @@ public class GameBoard extends javax.swing.JFrame {
         }
        
     }
+        
+    public void cellClicked(Game game, int row, int col)
+    {
+        Player currentPlayer = game.currentPlayer();
+        if (game.getBoard().getField(row, col).getDisk() == null)
+        {
+            if (currentPlayer.canPutDisk(game.getBoard().getField(row, col)))
+            {
+                currentPlayer.putDisk(game.getBoard().getField(row, col));
+                game.nextPlayer();
+                
+                Game gameToStack = new Game(game.getBoard());
+                gameToStack.whichPlayer = game.whichPlayer;
+                gameToStack.whitePlayer = game.whitePlayer;
+                gameToStack.blackPlayer = game.blackPlayer;
+                
+                gameStack.push(gameToStack);
+            }
+        }
+                        
+        repaint();
+    }
     
     // nemal som to kam jebnut, tak UNDO zatial bude testovat ci su fakt v strede tie kamene :D pre 8x8
     // 3:26 - fakt su :)
     private void BoardGameUndoButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BoardGameUndoButtonMouseClicked
-        //System.out.println(this.game.tmp);
-        
-        if (this.game.getBoard().getField(4, 4).getDisk() != null)
-        {
-            String color = "";
-            if (this.game.getBoard().getField(4, 4).getDisk().isWhite())
-                color = "biela";
-            else
-                color = "cierna";
-            
-            System.out.println("[4][4]: " + color);
-        }
-        else
-        {
-            System.out.println("Neni tam kamen");
-        }  
-        
-        if (this.game.getBoard().getField(4, 5).getDisk() != null)
-        {
-            String color = "";
-            if (this.game.getBoard().getField(4, 5).getDisk().isWhite())
-                color = "biela";
-            else
-                color = "cierna";
-            
-            System.out.println("[4][5]: " + color);
-        }
-        else
-        {
-            System.out.println("Neni tam kamen");
-        } 
-        
-        if (this.game.getBoard().getField(5, 4).getDisk() != null)
-        {
-            String color = "";
-            if (this.game.getBoard().getField(5, 4).getDisk().isWhite())
-                color = "biela";
-            else
-                color = "cierna";
-            
-            System.out.println("[5][4]: " + color);
-        }
-        else
-        {
-            System.out.println("Neni tam kamen");
-        } 
-        
-        if (this.game.getBoard().getField(5, 5).getDisk() != null)
-        {
-            String color = "";
-            if (this.game.getBoard().getField(5, 5).getDisk().isWhite())
-                color = "biela";
-            else
-                color = "cierna";
-            
-            System.out.println("[5][5]: " + color);
-        }
-        else
-        {
-            System.out.println("Neni tam kamen");
-        }
+        gameStack.pop();
+        this.game = (Game)gameStack.peek();
+        System.out.println("d");
     }//GEN-LAST:event_BoardGameUndoButtonMouseClicked
+
+    private void PlayingBoardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PlayingBoardMouseClicked
+        
+    }//GEN-LAST:event_PlayingBoardMouseClicked
 
     
   

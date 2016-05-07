@@ -13,7 +13,7 @@ public class Player implements Serializable
 {
     boolean isWhite;
     int disksCount;
-    List<Field.Direction> rigtDirections = new ArrayList<Field.Direction>();
+    
 
     public Player(boolean isWhite)
     {
@@ -27,16 +27,16 @@ public class Player implements Serializable
 
     public boolean canPutDisk(Field field)
     {
-        Field tmpField;
-        boolean wasOpposite = false;
+        Field tmpField;    
         boolean end = false;
         for (Field.Direction direction : Field.Direction.values()) {
+            boolean wasOpposite = false;
             tmpField = field.nextField(direction);
             while (tmpField.getDisk() != null)
             {
+                boolean first = true;
                 if (tmpField.getDisk().isWhite() != isWhite && !wasOpposite)
                 {
-                    rigtDirections.add(direction);
                     wasOpposite = true;
                 }
 
@@ -45,8 +45,13 @@ public class Player implements Serializable
                     end = true;
                     break;
                 }
+                else if (tmpField.getDisk().isWhite() == isWhite && !wasOpposite && first)
+                {
+                    break;
+                }
 
                 tmpField = tmpField.nextField(direction);
+                first = false;
                 if(tmpField == null)
                 {
                     wasOpposite = false;
@@ -67,6 +72,39 @@ public class Player implements Serializable
 
     public boolean putDisk(Field field)
     {
+        List<Field.Direction> rigtDirections = new ArrayList<Field.Direction>();
+        for (Field.Direction direction : Field.Direction.values()) {
+            boolean wasOpposite = false;
+            Field tmpField = field.nextField(direction);
+            while (tmpField.getDisk() != null)
+            {
+                boolean first = true;
+                if (tmpField.getDisk().isWhite() != isWhite && !wasOpposite)
+                {
+                    wasOpposite = true;
+                }
+
+                if (tmpField.getDisk().isWhite() == isWhite && wasOpposite)
+                {
+                    rigtDirections.add(direction);
+                    break;
+                }
+                else if (tmpField.getDisk().isWhite() == isWhite && !wasOpposite && first)
+                {
+                    break;
+                }
+
+                tmpField = tmpField.nextField(direction);
+                first = false;
+                if(tmpField == null)
+                {
+                    wasOpposite = false;
+                    break;
+                }
+            }
+
+        }
+        
         if (canPutDisk(field))
         {
             for (Field.Direction direction : rigtDirections)
