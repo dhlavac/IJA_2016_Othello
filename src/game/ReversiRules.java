@@ -5,7 +5,9 @@ import java.io.Serializable;
 
 
 /**
- * Created by xduris04 and xhlava42 on 3.4.2016.
+ * Trieda implementujuca pravidla
+ * @author Michal Durista (xduris04)
+ * @author Dominik Hlavac Duran (xhlava42)
  */
 public class ReversiRules implements Rules, Serializable
 {

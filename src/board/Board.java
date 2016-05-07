@@ -3,7 +3,9 @@ package board;
 import java.io.Serializable;
 
 /**
- * Created by xduris04 and xhlava42 on 12.3.2016.
+ * Trieda predstavujuca hraciu dosku
+ * @author Michal Durista (xduris04)
+ * @author Dominik Hlavac Duran (xhlava42)
  */
 public class Board implements Serializable
 {

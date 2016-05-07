@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 /**
- * Created by xduris04 and xhlava42 on 12.3.2016.
+ * Trieda predstavujuca hracie policko
+ * @author Michal Durista (xduris04)
+ * @author Dominik Hlavac Duran (xhlava42)
  */
 public class BoardField implements Field, Serializable {
     public Disk disk;

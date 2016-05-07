@@ -4,7 +4,9 @@ import board.Board;
 import java.io.Serializable;
 
 /**
- * Created by xduris04 and xhlava42 on 3.4.2016.
+ * Trieda predstavujuca samotnu hru
+ * @author Michal Durista (xduris04)
+ * @author Dominik Hlavac Duran (xhlava42)
  */
 public class Game implements Serializable
 {

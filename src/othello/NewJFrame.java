@@ -6,7 +6,6 @@
 package othello;
 
 import board.Board;
-import board.Disk;
 import game.Game;
 import game.Player;
 import game.ReversiRules;
@@ -20,10 +19,11 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author Dominik Hlaváč Ďurán xhlava42
+ * Trieda predstavujuca uvodne menu
+ * @author Michal Durista (xduris04)
+ * @author Dominik Hlavac Duran (xhlava42)
  */
-public class NewJFrame extends javax.swing.JFrame {
+public class NewJFrame extends javax.swing.JFrame implements Runnable{
 
     /**
      * Creates new form NewJFrame
@@ -466,7 +466,7 @@ public class NewJFrame extends javax.swing.JFrame {
             close();
             player1name = Player1Name.getText();
             player2name = Player2Name.getText();
-            ReversiRules rules = new ReversiRules(getSizeForBoard());   // mozno + 2
+            ReversiRules rules = new ReversiRules(getSizeForBoard());
             Board board = new Board(rules);
             Game game = new Game(board);
             
@@ -481,8 +481,11 @@ public class NewJFrame extends javax.swing.JFrame {
             game.addPlayer(player1);
             game.addPlayer(player2);
 
-            GameBoard NewBoard = new GameBoard(game);    // tu posielas uz rovno nainicializovany game aj s kamenmi v strede
+            GameBoard NewBoard = new GameBoard(game);
             NewBoard.setVisible(true);
+            
+           /* Thread myThread = new Thread(new NewJFrame());
+            myThread.start();*/
         }
         else {
             JOptionPane.showMessageDialog(null, "Error you must choose all options");
@@ -578,8 +581,12 @@ public class NewJFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new NewJFrame().setVisible(true);
+                
             }
         });
+        
+        /*Thread pica = new Thread();
+        pica.start();*/
         
         
     }
@@ -628,6 +635,29 @@ public class NewJFrame extends javax.swing.JFrame {
     public void close() {
         WindowEvent winClosingEvent = new WindowEvent( this, WindowEvent.WINDOW_CLOSING );
     Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent( winClosingEvent );
+    }
+
+    @Override
+    public void run() {
+           /* player1name = Player1Name.getText();
+            player2name = Player2Name.getText();
+            ReversiRules rules = new ReversiRules(getSizeForBoard());
+            Board board = new Board(rules);
+            Game game = new Game(board);
+            
+            Player player1 = new Player(true);  // biely     
+            Player player2 = new Player(false);  // cierny
+            
+            player1.init(board);
+            player2.init(board);
+            player1.name = player1name;
+            player2.name = player2name;
+
+            game.addPlayer(player1);
+            game.addPlayer(player2);
+
+            GameBoard NewBoard = new GameBoard(game);
+            NewBoard.setVisible(true);*/
     }
     
     

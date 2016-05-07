@@ -1,7 +1,9 @@
 package board;
 
 /**
- * Created by xduris04 and xhlava42 on 3.4.2016.
+ * Rozhranie pre pravidla
+ * @author Michal Durista (xduris04)
+ * @author Dominik Hlavac Duran (xhlava42)
  */
 public interface Rules {
     int getSize();

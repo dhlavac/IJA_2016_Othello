@@ -1,7 +1,9 @@
 package board;
 
 /**
- * Created by xduris04 and xhlava42 on 12.3.2016.
+ * Rozhranie pre policka
+ * @author Michal Durista (xduris04)
+ * @author Dominik Hlavac Duran (xhlava42)
  */
 public interface Field {
     void addNextField(Direction dirs, Field field);

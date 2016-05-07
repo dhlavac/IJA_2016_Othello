@@ -24,10 +24,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
- *
- * @author Dominik
+ * Trieda predstavujuca zobrazovanu hraciu plochu
+ * @author Michal Durista (xduris04)
+ * @author Dominik Hlavac Duran (xhlava42)
  */
-public class GameBoard extends javax.swing.JFrame {
+public class GameBoard extends javax.swing.JFrame implements Runnable{
 
     /**
      * Creates new form GameBoard
@@ -40,8 +41,6 @@ public class GameBoard extends javax.swing.JFrame {
     
     public GameBoard(Game game) {
         initComponents();
-        Player1Name.setText(game.whitePlayer.name);
-        Player2Name.setText(game.blackPlayer.name);
         this.size = game.getBoard().getSize();
         this.game = game;
         initializeGui();
@@ -333,16 +332,11 @@ public class GameBoard extends javax.swing.JFrame {
             {
                 currentPlayer.putDisk(game.getBoard().getField(row, col));
                 game.nextPlayer();
+                
                 game.countDicks();
                 Player1Score.setText(String.valueOf(game.whiteDisks));
                 Player2Score.setText(String.valueOf(game.blackDisks));
                 checkWin(game.blackDisks,game.whiteDisks);
-                Game gameToStack = new Game(game.getBoard());
-                gameToStack.whichPlayer = game.whichPlayer;
-                gameToStack.whitePlayer = game.whitePlayer;
-                gameToStack.blackPlayer = game.blackPlayer;
-                
-                gameStack.push(gameToStack);
             }
         }
                         
@@ -401,4 +395,8 @@ public class GameBoard extends javax.swing.JFrame {
     private javax.swing.JLabel Score1;
     private javax.swing.JLabel Score2;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void run() {
+    }
 }

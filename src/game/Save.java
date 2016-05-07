@@ -11,8 +11,9 @@ import board.Rules;
 import java.io.Serializable;
 
 /**
- *
- * @author Admin
+ * Trieda pre ukladanie hry
+ * @author Michal Durista (xduris04)
+ * @author Dominik Hlavac Duran (xhlava42)
  */
 public class Save implements Serializable{
     public BoardField[][] fields;

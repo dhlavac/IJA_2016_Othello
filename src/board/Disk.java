@@ -3,7 +3,9 @@ package board;
 import java.io.Serializable;
 
 /**
- * Created by xduris04 and xhlava42 on 12.3.2016.
+ * Trieda predstavujuca jeden disk
+ * @author Michal Durista (xduris04)
+ * @author Dominik Hlavac Duran (xhlava42)
  */
 public class Disk implements Serializable
 {

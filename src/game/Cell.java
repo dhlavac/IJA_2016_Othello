@@ -12,8 +12,9 @@ import java.awt.Graphics;
 import javax.swing.JButton;
 
 /**
- *
- * @author Admin
+ * Trieda predstavujuca zobrazovane policko
+ * @author Michal Durista (xduris04)
+ * @author Dominik Hlavac Duran (xhlava42)
  */
 public class Cell extends JButton{
     public Game game;

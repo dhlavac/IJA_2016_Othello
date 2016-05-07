@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by xduris04 and xhlava42 on 3.4.2016.
+ * Trieda predstavujuca jedneho hraca
+ * @author Michal Durista (xduris04)
+ * @author Dominik Hlavac Duran (xhlava42)
  */
 public class Player implements Serializable
 {
