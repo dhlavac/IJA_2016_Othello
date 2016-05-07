@@ -190,6 +190,11 @@ public class GameBoard extends javax.swing.JFrame {
 
         BoardGameMenuItemLoadGame.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
         BoardGameMenuItemLoadGame.setText("Load Game");
+        BoardGameMenuItemLoadGame.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BoardGameMenuItemLoadGameActionPerformed(evt);
+            }
+        });
         GameBoardMenuFile.add(BoardGameMenuItemLoadGame);
 
         BoardGameMenuItemExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
@@ -357,8 +362,12 @@ public class GameBoard extends javax.swing.JFrame {
     }//GEN-LAST:event_BoardGameMenuItemExitActionPerformed
 
     private void BoardGameMenuItemNewGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoardGameMenuItemNewGameActionPerformed
-        
+        new NewJFrame().setVisible(true);
     }//GEN-LAST:event_BoardGameMenuItemNewGameActionPerformed
+
+    private void BoardGameMenuItemLoadGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoardGameMenuItemLoadGameActionPerformed
+        
+    }//GEN-LAST:event_BoardGameMenuItemLoadGameActionPerformed
 
     /*
      * counter the scores and return the winner
