@@ -28,8 +28,13 @@ public class NewJFrame extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame
      */
+    public String player1name, player2name;
+    
     public NewJFrame() {
         initComponents();
+        DifficultyLabel.setVisible(false);
+        DifficultyRadioButtonEasy.setVisible(false);
+        DifficultyRadioButtonHard.setVisible(false);
     }
     
     String loadedFile;
@@ -47,6 +52,7 @@ public class NewJFrame extends javax.swing.JFrame {
         RadioButtonGroupPlayerSelect = new javax.swing.ButtonGroup();
         RadioButtonGroupPlayerColor = new javax.swing.ButtonGroup();
         FileLoadWindow = new javax.swing.JFileChooser();
+        RadioButtonGroupDifficulty = new javax.swing.ButtonGroup();
         StartMenu = new javax.swing.JPanel();
         NewGameButton = new javax.swing.JButton();
         GameName = new javax.swing.JLabel();
@@ -66,11 +72,11 @@ public class NewJFrame extends javax.swing.JFrame {
         Player1NameLabel = new javax.swing.JLabel();
         Player2NameLabel = new javax.swing.JLabel();
         Player2Name = new javax.swing.JTextField();
-        ColorOfPlayerLabel = new javax.swing.JLabel();
-        BlackStone = new javax.swing.JRadioButton();
-        WhiteStone = new javax.swing.JRadioButton();
         StoneFreezingLabel = new javax.swing.JLabel();
         FreezingStoneCheckBox = new javax.swing.JCheckBox();
+        DifficultyLabel = new javax.swing.JLabel();
+        DifficultyRadioButtonEasy = new javax.swing.JRadioButton();
+        DifficultyRadioButtonHard = new javax.swing.JRadioButton();
         LoadMenu = new javax.swing.JPanel();
         LoadFileLabel = new javax.swing.JLabel();
         LoadButton = new javax.swing.JButton();
@@ -205,25 +211,25 @@ public class NewJFrame extends javax.swing.JFrame {
         Player2Name.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         Player2Name.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         Player2Name.setText("Player 2");
-        Player2Name.setEnabled(false);
-
-        ColorOfPlayerLabel.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        ColorOfPlayerLabel.setText("First to act");
-
-        RadioButtonGroupPlayerColor.add(BlackStone);
-        BlackStone.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        BlackStone.setText("Black");
-
-        RadioButtonGroupPlayerColor.add(WhiteStone);
-        WhiteStone.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        WhiteStone.setSelected(true);
-        WhiteStone.setText("White");
 
         StoneFreezingLabel.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         StoneFreezingLabel.setText("Freezing stones");
 
         FreezingStoneCheckBox.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         FreezingStoneCheckBox.setText("On");
+
+        DifficultyLabel.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        DifficultyLabel.setText("Difficulty");
+        DifficultyLabel.setOpaque(true);
+
+        RadioButtonGroupDifficulty.add(DifficultyRadioButtonEasy);
+        DifficultyRadioButtonEasy.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        DifficultyRadioButtonEasy.setSelected(true);
+        DifficultyRadioButtonEasy.setText("Easy");
+
+        RadioButtonGroupDifficulty.add(DifficultyRadioButtonHard);
+        DifficultyRadioButtonHard.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        DifficultyRadioButtonHard.setText("Hard");
 
         javax.swing.GroupLayout NewGameMenuLayout = new javax.swing.GroupLayout(NewGameMenu);
         NewGameMenu.setLayout(NewGameMenuLayout);
@@ -233,55 +239,50 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addGroup(NewGameMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(NewGameMenuLayout.createSequentialGroup()
                         .addGap(44, 44, 44)
-                        .addGroup(NewGameMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(Player1Name, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(NewGameMenuLayout.createSequentialGroup()
-                                .addGroup(NewGameMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(BoardSizeLabel)
-                                    .addComponent(ChosePlayerLabel)
-                                    .addComponent(Player1NameLabel))
-                                .addGroup(NewGameMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(NewGameMenuLayout.createSequentialGroup()
-                                        .addGap(19, 19, 19)
-                                        .addGroup(NewGameMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(NewGameMenuLayout.createSequentialGroup()
-                                                .addComponent(RadioButtonSize6)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(RadioButtonSize8)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(RadioButtonSize10)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(RadioButtonSize12))
-                                            .addGroup(NewGameMenuLayout.createSequentialGroup()
+                        .addGroup(NewGameMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(NewGameMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, NewGameMenuLayout.createSequentialGroup()
+                                    .addGroup(NewGameMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(BoardSizeLabel)
+                                        .addComponent(ChosePlayerLabel)
+                                        .addComponent(DifficultyLabel))
+                                    .addGap(19, 19, 19)
+                                    .addGroup(NewGameMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(NewGameMenuLayout.createSequentialGroup()
+                                            .addComponent(RadioButtonSize6)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(RadioButtonSize8)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(RadioButtonSize10)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(RadioButtonSize12))
+                                        .addGroup(NewGameMenuLayout.createSequentialGroup()
+                                            .addGroup(NewGameMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(PlayerComputer)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(PlayerHuman)))
-                                        .addGap(12, 12, 12))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NewGameMenuLayout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(Player2NameLabel)
-                                        .addGap(55, 55, 55))))
+                                                .addComponent(DifficultyRadioButtonEasy))
+                                            .addGap(18, 18, 18)
+                                            .addGroup(NewGameMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(DifficultyRadioButtonHard)
+                                                .addComponent(PlayerHuman)))))
+                                .addComponent(StoneFreezingLabel, javax.swing.GroupLayout.Alignment.LEADING))
                             .addGroup(NewGameMenuLayout.createSequentialGroup()
                                 .addGroup(NewGameMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ColorOfPlayerLabel)
-                                    .addComponent(StoneFreezingLabel))
-                                .addGroup(NewGameMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Player1Name, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(NewGameMenuLayout.createSequentialGroup()
-                                        .addGroup(NewGameMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NewGameMenuLayout.createSequentialGroup()
-                                                .addComponent(FreezingStoneCheckBox)
-                                                .addGap(69, 69, 69))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NewGameMenuLayout.createSequentialGroup()
-                                                .addComponent(BlackStone)
-                                                .addGap(18, 18, 18)))
-                                        .addComponent(WhiteStone))
-                                    .addGroup(NewGameMenuLayout.createSequentialGroup()
-                                        .addGap(37, 37, 37)
-                                        .addComponent(Player2Name, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                        .addGap(36, 36, 36)
+                                        .addComponent(Player1NameLabel)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(NewGameMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(Player2Name, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, NewGameMenuLayout.createSequentialGroup()
+                                        .addGap(34, 34, 34)
+                                        .addComponent(Player2NameLabel))))))
                     .addGroup(NewGameMenuLayout.createSequentialGroup()
                         .addGap(176, 176, 176)
-                        .addComponent(PlayButton, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(113, Short.MAX_VALUE))
+                        .addGroup(NewGameMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(FreezingStoneCheckBox)
+                            .addComponent(PlayButton, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
         NewGameMenuLayout.setVerticalGroup(
             NewGameMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -298,7 +299,12 @@ public class NewJFrame extends javax.swing.JFrame {
                     .addComponent(ChosePlayerLabel)
                     .addComponent(PlayerComputer)
                     .addComponent(PlayerHuman))
-                .addGap(64, 64, 64)
+                .addGap(24, 24, 24)
+                .addGroup(NewGameMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(DifficultyLabel)
+                    .addComponent(DifficultyRadioButtonEasy)
+                    .addComponent(DifficultyRadioButtonHard))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addGroup(NewGameMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Player1NameLabel)
                     .addComponent(Player2NameLabel))
@@ -306,21 +312,14 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addGroup(NewGameMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Player1Name, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Player2Name, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
-                .addGroup(NewGameMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ColorOfPlayerLabel)
-                    .addComponent(BlackStone)
-                    .addComponent(WhiteStone))
-                .addGap(72, 72, 72)
+                .addGap(106, 106, 106)
                 .addGroup(NewGameMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(StoneFreezingLabel)
                     .addComponent(FreezingStoneCheckBox))
-                .addGap(69, 69, 69)
+                .addGap(110, 110, 110)
                 .addComponent(PlayButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36))
         );
-
-        ColorOfPlayerLabel.getAccessibleContext().setAccessibleName("Color of first player");
 
         getContentPane().add(NewGameMenu, "card3");
 
@@ -429,6 +428,9 @@ public class NewJFrame extends javax.swing.JFrame {
         if (PlayerHuman.isSelected()) {
             Player2Name.setEnabled(true);
             Player2Name.setText("Player 2");
+            DifficultyLabel.setVisible(false);
+            DifficultyRadioButtonEasy.setVisible(false);
+            DifficultyRadioButtonHard.setVisible(false);
         }
     }//GEN-LAST:event_PlayerHumanActionPerformed
 
@@ -436,6 +438,9 @@ public class NewJFrame extends javax.swing.JFrame {
         if (PlayerComputer.isSelected()) {
             Player2Name.setEnabled(false);
             Player2Name.setText("Computer");
+            DifficultyLabel.setVisible(true);
+            DifficultyRadioButtonEasy.setVisible(true);
+            DifficultyRadioButtonHard.setVisible(true);
         }
     }//GEN-LAST:event_PlayerComputerActionPerformed
 
@@ -456,9 +461,11 @@ public class NewJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuItemNewGameActionPerformed
 
     private void PlayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PlayButtonActionPerformed
-        if ((PlayerComputer.isSelected() || PlayerHuman.isSelected()) && (BlackStone.isSelected() || WhiteStone.isSelected()) && (!Player1Name.getText().equals("") && !Player2Name.getText().equals("") ) ) {
+        if ((PlayerComputer.isSelected() || PlayerHuman.isSelected()) && (!Player1Name.getText().equals("") && !Player2Name.getText().equals("") ) ) {
             
             close();
+            player1name = Player1Name.getText();
+            player2name = Player2Name.getText();
             ReversiRules rules = new ReversiRules(getSizeForBoard());   // mozno + 2
             Board board = new Board(rules);
             Game game = new Game(board);
@@ -468,6 +475,8 @@ public class NewJFrame extends javax.swing.JFrame {
             
             player1.init(board);
             player2.init(board);
+            player1.name = player1name;
+            player2.name = player2name;
 
             game.addPlayer(player1);
             game.addPlayer(player2);
@@ -576,10 +585,11 @@ public class NewJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JRadioButton BlackStone;
     private javax.swing.JLabel BoardSizeLabel;
     private javax.swing.JLabel ChosePlayerLabel;
-    private javax.swing.JLabel ColorOfPlayerLabel;
+    private javax.swing.JLabel DifficultyLabel;
+    private javax.swing.JRadioButton DifficultyRadioButtonEasy;
+    private javax.swing.JRadioButton DifficultyRadioButtonHard;
     private javax.swing.JButton ExitButton;
     private javax.swing.JFileChooser FileLoadWindow;
     private javax.swing.JTextField FileToLoad;
@@ -604,6 +614,7 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton PlayerComputer;
     private javax.swing.JRadioButton PlayerHuman;
     private javax.swing.ButtonGroup RadioButtonGroupBoardSize;
+    private javax.swing.ButtonGroup RadioButtonGroupDifficulty;
     private javax.swing.ButtonGroup RadioButtonGroupPlayerColor;
     private javax.swing.ButtonGroup RadioButtonGroupPlayerSelect;
     private javax.swing.JRadioButton RadioButtonSize10;
@@ -612,11 +623,12 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton RadioButtonSize8;
     private javax.swing.JPanel StartMenu;
     private javax.swing.JLabel StoneFreezingLabel;
-    private javax.swing.JRadioButton WhiteStone;
     // End of variables declaration//GEN-END:variables
 
     public void close() {
         WindowEvent winClosingEvent = new WindowEvent( this, WindowEvent.WINDOW_CLOSING );
     Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent( winClosingEvent );
     }
+    
+    
 }

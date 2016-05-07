@@ -12,6 +12,8 @@ public class Game implements Serializable
     public boolean whichPlayer = false;
     public Player blackPlayer;
     public Player whitePlayer;
+    public int blackDisks = 2;
+    public int whiteDisks = 2;
 
     public Game(Board board)
     {
@@ -50,5 +52,22 @@ public class Game implements Serializable
             }
 
         return false;
+    }
+    
+    public void countDicks()
+    {
+        int tmpWhiteDisks = 0;
+        int tmpBlackDisks = 0;
+        for (int i = 1; i < board.getSize() + 1; i++)
+            for (int j = 1; j < board.getSize() + 1; j++)
+            {
+                if (board.getField(i, j).getDisk() != null && board.getField(i, j).getDisk().isWhite())
+                    tmpWhiteDisks++;
+                else if (board.getField(i, j).getDisk() != null && !board.getField(i, j).getDisk().isWhite())
+                    tmpBlackDisks++;
+            }
+        
+        this.whiteDisks = tmpWhiteDisks;
+        this.blackDisks = tmpBlackDisks;
     }
 }

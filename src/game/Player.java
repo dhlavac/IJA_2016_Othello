@@ -13,6 +13,7 @@ public class Player implements Serializable
 {
     boolean isWhite;
     int disksCount;
+    public String name;
     
 
     public Player(boolean isWhite)
