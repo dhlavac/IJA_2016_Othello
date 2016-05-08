@@ -13,11 +13,18 @@ public class Board implements Serializable
     public static Field[][] field;
     Rules rules;
 
+    
+    /**
+     * Konstruktor vytvarajuci hraciu dosku podla zadaných pravidiel
+     * @author Michal Durista (xduris04)
+     * @author Dominik Hlavac Duran (xhlava42)
+     * @param rules pravidla pre vznik hracej dosky
+     */
     public Board(Rules rules)
     {
         this.size = rules.getSize();
         this.rules = rules;
-        this.field = new Field[size + 2][size + 2]; // +2 lebo mame aj okrajove, neaktivne polia
+        Board.field = new Field[size + 2][size + 2]; // +2 lebo mame aj okrajove, neaktivne polia
         for (int col = 0; col < size + 2; col++ )
         {
             for (int row = 0; row < size + 2; row++)
@@ -65,9 +72,17 @@ public class Board implements Serializable
             }
         }
     }
+    
+    /**
+     * Funkcia vracajuca jednotlive polia hracej dosky
+     * @author Michal Durista (xduris04)
+     * @author Dominik Hlavac Duran (xhlava42)
+     * @param row Riadok Boardu
+     * @param col Stlpec Boardu
+     * @return field Vracia policko hracej dosky na zadanom riadku a stlpci.
+     */
 
-    public Field getField(int row, int col)
-    {
+    public Field getField(int row, int col) {
         if (row >= 0 && row < (size + 2) && col >= 0 && col < (size + 2))
         {
             return field[row][col];
@@ -77,17 +92,36 @@ public class Board implements Serializable
             return null;
         }
     }
+    
+     /**
+     * Funkcia priradí vytvorené pole na suradnice na hracej doske
+     * @author Michal Durista (xduris04)
+     * @author Dominik Hlavac Duran (xhlava42)
+     * @param row Riadok Boardu
+     * @param col Stlpec Boardu
+     * @param field Policko hracej plochy
+     */
 
-    public void putField(int row, int col, Field field)
-    {
-        this.field[row][col] = field;
+    public void putField(int row, int col, Field field) {
+        Board.field[row][col] = field;
     }
+    
+    /**
+     * Funkcia vracia pravidla hracej dosky
+     * @author Michal Durista (xduris04)
+     * @author Dominik Hlavac Duran (xhlava42)
+     */
 
-    public Rules getRules()
-    {
+    public Rules getRules() {
         return rules;
     }
 
+    
+    /**
+     * Funkcia vracia velkost hracej dosky
+     * @author Michal Durista (xduris04)
+     * @author Dominik Hlavac Duran (xhlava42)
+     */
     public int getSize ()
     {
         return size;
