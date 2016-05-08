@@ -23,8 +23,8 @@ public class ReversiRules implements Rules, Serializable
     }
     
     /**
-     * Metoda vracajúca velkosť hracej plochy
-     * @return size Vracia velkosť hracej dosky
+     * Metoda vracajuca velkosť hracej plochy
+     * @return size Vracia velkost hracej dosky
      */
     public int getSize()
     {
@@ -32,7 +32,7 @@ public class ReversiRules implements Rules, Serializable
     }
     
     /**
-     * Metoda vracajúca počet diskov
+     * Metoda vracajuca pocet diskov
      * @return (size * size) /2
      */
     public int numberDisks()
@@ -41,9 +41,9 @@ public class ReversiRules implements Rules, Serializable
     }
     
     /**
-     * Metoda vytvorý hracie policko
-     * @param row Počet riadkov
-     * @param col Počet stlpcov
+     * Metoda vytvory hracie policko
+     * @param row Pocet riadkov
+     * @param col Pocet stlpcov
      * @return hracie policko
      */
     public BoardField createField(int row, int col)

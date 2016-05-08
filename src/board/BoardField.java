@@ -88,8 +88,8 @@ public class BoardField implements Field, Serializable {
 
     /**
      * Metoda vracia pomocne policka podla smeru
-     * @param dirs smer v ktorom chceme najst policko
-     * @return pomocne policko urcene smerom
+     * @param dirs Smer v ktorom chceme najst policko
+     * @return Pomocne policko urcene smerom
      */
     public Field nextField(Field.Direction dirs){
         switch(dirs){
@@ -124,7 +124,7 @@ public class BoardField implements Field, Serializable {
     /**
      * Metoda vkladajuca hracie disky na policka plochy podla to ci 
      * je zadané pole prazdne
-     * @param disk Hrací disk  hráča
+     * @param disk Hraci disk  hraca
      * @return true a priradi disk ak je pole praznde inak vracia false
      */
     public boolean putDisk(Disk disk)
@@ -156,7 +156,7 @@ public class BoardField implements Field, Serializable {
     }
 
     /**
-     * Metoda vymaže disk 
+     * Metoda vymaze disk 
      */    
     public void deleteDisk()
     {

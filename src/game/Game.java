@@ -29,7 +29,7 @@ public class Game implements Serializable
     }
     
     /**
-     * Metoda na zistenie hráča ktorý je na rade
+     * Metoda na zistenie hraca ktory je na rade
      * @return hrac, ktory je na rade
      */
     public Player currentPlayer(){
@@ -37,7 +37,7 @@ public class Game implements Serializable
     }
     
     /**
-     * Metoda na zistenie hráča ktorý je další na rade
+     * Metoda na zistenie hraca ktory je dalsi na rade
      * @return hrac dalsi na rade
      */
     public Player nextPlayer(){
@@ -46,7 +46,7 @@ public class Game implements Serializable
     }
     
     /**
-     * Metoda vracia hracú plochu
+     * Metoda vracia hracu plochu
      * @return Hracia plocha board
      */
     public Board getBoard()
@@ -55,10 +55,10 @@ public class Game implements Serializable
     }
     
     /**
-     * Funkcia na pridanie nového hráča do hry a jeho inicializáciu
+     * Funkcia na pridanie noveho hraca do hry a jeho inicializaciu
      * na hracej ploche
-     * @param player Hráč
-     * @return true ak sa podarilo pridať nového hráča inak vracia false
+     * @param player Hrac
+     * @return true ak sa podarilo pridat noveho hraca inak vracia false
      */
 
     public boolean addPlayer(Player player)
@@ -84,7 +84,7 @@ public class Game implements Serializable
     }
     
     /**
-     * Metoda na spočítanie aktualneho počtu dikov jednotlivých hráčov,
+     * Metoda na spocitanie aktualneho poctu dikov jednotlivych harcov,
      * hodnoty vracia v premennych whiteDisks a blackDisks
      */   
     public void countDicks()

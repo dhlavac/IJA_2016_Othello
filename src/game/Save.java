@@ -2,7 +2,6 @@ package game;
 
 import board.Board;
 import board.BoardField;
-import board.Rules;
 import java.io.Serializable;
 
 /**
@@ -20,9 +19,9 @@ public class Save implements Serializable{
     public boolean diffEasy = true;
     
     /**
-     * Konstruktor ukladá aktualne rozohratú hru aj so všetkými parametrami
-     * @param game Hra obsahujúca všetky informacie vrátane hráčov,
-     * hracej dosky, počtu diskov atd.
+     * Konstruktor uklada aktualne rozohratu hru aj so vsetkymi parametrami
+     * @param game Hra obsahujuca vsetky informacie vratane hracov,
+     * hracej dosky, poctu diskov atd.
      */  
     public Save(Game game)
     {

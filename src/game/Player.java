@@ -20,7 +20,7 @@ public class Player implements Serializable
 
     /**
      * Konstruktor, nastavi farbu hraca
-     * @param isWhite 
+     * @param isWhite Farba hraca
      */
     public Player(boolean isWhite)
     {
@@ -90,7 +90,7 @@ public class Player implements Serializable
 
     /**
      * Zistuje, ci ma hrac este nejake kamene
-     * @return 
+     * @return Vracia true alebo fasle podal toho ci este hrac ma nejake kamene
      */
     public boolean emptyPool()
     {

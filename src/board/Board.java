@@ -14,7 +14,7 @@ public class Board implements Serializable
     Rules rules;
 
     /**
-     * Konstruktor vytvarajuci hraciu dosku podla zadaných pravidiel
+     * Konstruktor vytvarajuci hraciu dosku podla zadanych pravidiel
      * @param rules pravidla pre vznik hracej dosky
      */
 
@@ -92,7 +92,7 @@ public class Board implements Serializable
     }
 
     /**
-     * Metoda priradí vytvorené pole na suradnice na hracej doske
+     * Metoda priradi vytvorene pole na suradnice na hracej doske
      * @param row Riadok Boardu
      * @param col Stlpec Boardu
      * @param field Policko hracej plochy
@@ -106,6 +106,7 @@ public class Board implements Serializable
 
     /**
      * Metoda vracia pravidla hracej dosky
+     * @return Vracia pravidla
      */
 
     public Rules getRules()
@@ -115,6 +116,7 @@ public class Board implements Serializable
 
     /**
      * Metoda vracia velkost hracej dosky
+     * @return Vracia velkost
      */
 
     public int getSize ()

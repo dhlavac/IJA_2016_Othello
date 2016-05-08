@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class BorderField implements Field, Serializable {
 
     /**
-     * Metoda nerobí nič
+     * Metoda nerobi nic
      * @param dirs Suradnice
      * @param field Pole hracej plochy 
      */
@@ -66,7 +66,7 @@ public class BorderField implements Field, Serializable {
     }
 
     /**
-     * Metoda nerobi nic
+     * Metoda zmaze disk
      */   
     public void deleteDisk()
     {
