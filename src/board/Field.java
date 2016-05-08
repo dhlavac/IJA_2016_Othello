@@ -11,12 +11,17 @@ public interface Field {
     Field nextField(Direction dirs);
 
     boolean putDisk(Disk disk);
-
+    
+    int getCol();
+    
+    int getRow();
     //boolean canPutDisk(Disk disk);
 
    // boolean isEmpty();
 
     Disk getDisk();
+    
+    void deleteDisk();
 
     public static enum Direction {
         D,

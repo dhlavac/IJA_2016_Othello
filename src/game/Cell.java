@@ -21,6 +21,15 @@ public class Cell extends JButton{
     public int row;
     public int col;
     
+    /**
+     * Konstruktor vytvarajuci jedno policko na hracej ploche
+     * @author Michal Durista (xduris04)
+     * @author Dominik Hlavac Duran (xhlava42)
+     * @param game Cela hra aj s pravidlami a doskou
+     * @param row Cislo riadku
+     * @param col Cislo stlpca
+     */
+    
     public Cell(Game game, int row, int col)
     {
         this.game = game;

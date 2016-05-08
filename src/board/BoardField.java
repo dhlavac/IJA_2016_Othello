@@ -13,10 +13,43 @@ public class BoardField implements Field, Serializable {
     private int row, col;
     final Field[] fieldsAround = new Field[8];
 
+
+    /**
+     * Konstruktor Board Field nastaví hodnoty row a col
+     * @author Michal Durista (xduris04)
+     * @author Dominik Hlavac Duran (xhlava42)
+     * @param row Cislo riadku
+     * @param col Cislo stplca
+     */
+
     public BoardField(int row, int col)
     {
         this.row = row;
         this.col = col;
+    }
+
+    /**
+     * Funkcia  vracia stlpec 
+     * @author Michal Durista (xduris04)
+     * @author Dominik Hlavac Duran (xhlava42)
+     * @return Vracia cislo stlpca
+     */
+    
+    public int getCol()
+    {
+        return this.col;
+    }
+
+     /**
+     * Funkcia  vracia riadok 
+     * @author Michal Durista (xduris04)
+     * @author Dominik Hlavac Duran (xhlava42)
+     * @return Vracia cislo riadku
+     */
+    
+    public int getRow()
+    {
+        return this.row;
     }
 
     public void addNextField(Field.Direction dirs, Field field)
@@ -87,6 +120,15 @@ public class BoardField implements Field, Serializable {
         return null;
     }
 
+    /**
+     * Funkcia vkladajuca hracie disky na policka plochy podla to ci 
+     * je zadané pole prazdne
+     * @author Michal Durista (xduris04)
+     * @author Dominik Hlavac Duran (xhlava42)
+     * @param disk Hrací disk  hráča
+     * @return Vracia true a priradi disk ak je pole praznde inak vracia false
+     */
+
     public boolean putDisk(Disk disk)
     {
         if (this.disk == null)
@@ -100,6 +142,13 @@ public class BoardField implements Field, Serializable {
         }
     }
 
+    /**
+     * Funkcia  vracia disk 
+     * @author Michal Durista (xduris04)
+     * @author Dominik Hlavac Duran (xhlava42)
+     * @return Vracia disk ak nieje pole praznde inak vracia null
+     */
+
     public Disk getDisk()
     {
         if (this.disk != null)
@@ -109,6 +158,18 @@ public class BoardField implements Field, Serializable {
         {
             return null;
         }
+    }
+
+    /**
+     * Funkcia  vymaže disk 
+     * @author Michal Durista (xduris04)
+     * @author Dominik Hlavac Duran (xhlava42)
+     * @return Vracia disk ak nieje pole praznde inak vracia null
+     */
+    
+    public void deleteDisk()
+    {
+        this.disk = null;
     }
 
     @Override

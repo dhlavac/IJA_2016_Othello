@@ -16,7 +16,7 @@ public class Player implements Serializable
     boolean isWhite;
     int disksCount;
     public String name;
-    
+    public List<BoardField> turnedFields = new ArrayList<BoardField>();
 
     public Player(boolean isWhite)
     {
@@ -26,6 +26,11 @@ public class Player implements Serializable
     public boolean isWhite()
     {
         return this.isWhite;
+    }
+    
+    public void emptyList()
+    {
+        turnedFields.clear();
     }
 
     public boolean canPutDisk(Field field)
@@ -121,6 +126,7 @@ public class Player implements Serializable
                     }
 
                     tmpField.getDisk().turn();
+                    turnedFields.add(new BoardField(tmpField.getRow(), tmpField.getCol()));
                     tmpField = tmpField.nextField(direction);
                 }
             }

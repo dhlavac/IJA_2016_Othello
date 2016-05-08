@@ -5,10 +5,13 @@
  */
 package othello;
 
+import board.BoardField;
+import board.Field;
 import game.Cell;
 import game.Game;
 import game.Player;
 import game.Save;
+import game.Undo;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -18,6 +21,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Stack;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -37,13 +41,15 @@ public class GameBoard extends javax.swing.JFrame implements Runnable{
     Game game;
     JPanel boardPanel;
     List<Cell> cellList = new ArrayList<Cell>();
-    Stack gameStack = new Stack<Game>();
+    Stack<Undo> gameStack = new Stack<Undo>();
     
     public GameBoard(Game game) {
         initComponents();
         this.size = game.getBoard().getSize();
         this.game = game;
         initializeGui();
+        Player1Name.setText(game.whitePlayer.name);
+        Player2Name.setText(game.blackPlayer.name);
     }
 
     /**
@@ -66,11 +72,12 @@ public class GameBoard extends javax.swing.JFrame implements Runnable{
         Player1Name = new javax.swing.JLabel();
         Score2 = new javax.swing.JLabel();
         Player1Score = new javax.swing.JLabel();
+        ExitButton = new javax.swing.JButton();
+        TurnPlayerLabel = new javax.swing.JLabel();
+        TurnLabel = new javax.swing.JLabel();
         GameBoardMenuBar = new javax.swing.JMenuBar();
         GameBoardMenuFile = new javax.swing.JMenu();
         BoardGameMenuItemNewGame = new javax.swing.JMenuItem();
-        BoardGameMenuItemSaveGame = new javax.swing.JMenuItem();
-        BoardGameMenuItemLoadGame = new javax.swing.JMenuItem();
         BoardGameMenuItemExit = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -172,6 +179,21 @@ public class GameBoard extends javax.swing.JFrame implements Runnable{
                 .addGap(22, 22, 22))
         );
 
+        ExitButton.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        ExitButton.setText("Exit");
+        ExitButton.setPreferredSize(new java.awt.Dimension(100, 50));
+        ExitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExitButtonActionPerformed(evt);
+            }
+        });
+
+        TurnPlayerLabel.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        TurnPlayerLabel.setText("White");
+
+        TurnLabel.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        TurnLabel.setText("Turn :");
+
         GameBoardMenuFile.setText("File");
 
         BoardGameMenuItemNewGame.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
@@ -182,19 +204,6 @@ public class GameBoard extends javax.swing.JFrame implements Runnable{
             }
         });
         GameBoardMenuFile.add(BoardGameMenuItemNewGame);
-
-        BoardGameMenuItemSaveGame.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
-        BoardGameMenuItemSaveGame.setText("Save Game");
-        GameBoardMenuFile.add(BoardGameMenuItemSaveGame);
-
-        BoardGameMenuItemLoadGame.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
-        BoardGameMenuItemLoadGame.setText("Load Game");
-        BoardGameMenuItemLoadGame.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BoardGameMenuItemLoadGameActionPerformed(evt);
-            }
-        });
-        GameBoardMenuFile.add(BoardGameMenuItemLoadGame);
 
         BoardGameMenuItemExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
         BoardGameMenuItemExit.setText("Exit");
@@ -218,15 +227,23 @@ public class GameBoard extends javax.swing.JFrame implements Runnable{
                 .addComponent(PlayingBoard, javax.swing.GroupLayout.PREFERRED_SIZE, 849, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Player2JPanle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Player1JPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(50, 50, 50)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(BoardGameSaveButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(BoardGameUndoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(BoardGameSaveButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(BoardGameUndoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(29, 29, 29)
+                                .addComponent(TurnLabel)
+                                .addGap(18, 18, 18)
+                                .addComponent(TurnPlayerLabel))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(Player2JPanle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Player1JPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap(86, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -236,12 +253,18 @@ public class GameBoard extends javax.swing.JFrame implements Runnable{
                     .addGroup(layout.createSequentialGroup()
                         .addGap(46, 46, 46)
                         .addComponent(BoardGameUndoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(107, 107, 107)
+                        .addGap(37, 37, 37)
+                        .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45)
                         .addComponent(BoardGameSaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(52, 52, 52)
                         .addComponent(Player1JPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
-                        .addComponent(Player2JPanle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(Player2JPanle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TurnPlayerLabel)
+                            .addComponent(TurnLabel)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(PlayingBoard, javax.swing.GroupLayout.PREFERRED_SIZE, 716, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -252,11 +275,6 @@ public class GameBoard extends javax.swing.JFrame implements Runnable{
     }// </editor-fold>//GEN-END:initComponents
 
     private void BoardGameSaveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BoardGameSaveButtonMouseClicked
-        /*Rules rRules = new ReversiRules(8); // zmazat potom
-        Board board = new Board(rRules);    // zmazat
-        Game game = new Game(board);        // tu priradime hru co chceme ulozit
-        game.tmp = "ahooj";                 // zmazat, len na kontrolu*/
-        
         JFileChooser f = new JFileChooser();
         f.setFileSelectionMode(JFileChooser.FILES_ONLY);
         f.showSaveDialog(null);
@@ -314,10 +332,6 @@ public class GameBoard extends javax.swing.JFrame implements Runnable{
                 
                 PlayingBoard.add(cell, box);
                 cellList.add(cell);
-                /*cell.setSize(70, 70);
-                cell.setBackground(new Color(188, 222, 255));
-                cell.setBorder(BorderFactory.createLineBorder(Color.gray));
-                boardPanel.add(cell);*/
             }
         }
        
@@ -326,29 +340,142 @@ public class GameBoard extends javax.swing.JFrame implements Runnable{
     public void cellClicked(Game game, int row, int col)
     {
         Player currentPlayer = game.currentPlayer();
-        if (game.getBoard().getField(row, col).getDisk() == null)
-        {
-            if (currentPlayer.canPutDisk(game.getBoard().getField(row, col)))
-            {
+        if (game.getBoard().getField(row, col).getDisk() == null) {
+            if (currentPlayer.canPutDisk(game.getBoard().getField(row, col))) {
                 currentPlayer.putDisk(game.getBoard().getField(row, col));
                 game.nextPlayer();
+                
+                Undo undo = new Undo();
+                undo.addedField = new BoardField(row, col);
+                undo.turnedFields = new ArrayList<BoardField>();
+                for (BoardField turnedField : currentPlayer.turnedFields)
+                    undo.turnedFields.add(turnedField);
+                
+                currentPlayer.emptyList();
+                gameStack.push(undo);
+                
+                
+                if (game.PCplaying)
+                    if (game.diffEasy) {
+                        easyPC(game);
+                    }
+                    else {
+                        hardPC(game);
+                    }
                 
                 game.countDicks();
                 Player1Score.setText(String.valueOf(game.whiteDisks));
                 Player2Score.setText(String.valueOf(game.blackDisks));
+
+                if (!game.whichPlayer) {
+                    TurnPlayerLabel.setText("White");
+                }
+                else {
+                    TurnPlayerLabel.setText("Black");
+                }
                 checkWin(game.blackDisks,game.whiteDisks);
+                
             }
         }
-                        
+                               
         repaint();
     }
     
-    // nemal som to kam jebnut, tak UNDO zatial bude testovat ci su fakt v strede tie kamene :D pre 8x8
-    // 3:26 - fakt su :)
+    private void easyPC(Game game)
+    {
+        for (int i = 1; i <= size; i++)
+            for (int j = 1; j <= size; j++)
+                if (game.currentPlayer().canPutDisk(game.getBoard().getField(i, j)) && game.getBoard().getField(i, j).getDisk() == null)
+                {
+                    game.currentPlayer().putDisk(game.getBoard().getField(i, j));
+                    
+                    Undo undo = new Undo();
+                    undo.addedField = new BoardField(i, j);
+                    undo.turnedFields = new ArrayList<BoardField>();
+                    for (BoardField turnedField : game.currentPlayer().turnedFields)
+                        undo.turnedFields.add(turnedField);
+
+                    game.currentPlayer().emptyList();
+                    gameStack.push(undo);
+                    
+                    game.nextPlayer();
+                    
+                    return;
+                }
+        
+        String msg = game.currentPlayer().name + " has no moves!";
+        if (game.whiteDisks + game.blackDisks != size*size - 1) // keby nahodou posledny
+            JOptionPane.showMessageDialog(null, msg);
+        game.nextPlayer();
+    }
+    
+    private void hardPC(Game game)
+    {
+        List<Field> rightFields = new ArrayList<Field>();
+        for (int i = 1; i <= size; i++)
+            for (int j = 1; j <= size; j++)
+                if (game.currentPlayer().canPutDisk(game.getBoard().getField(i, j)) && game.getBoard().getField(i, j).getDisk() == null)
+                {
+                    rightFields.add(game.getBoard().getField(i, j));
+                }
+        
+        int size = rightFields.size();
+        if (size > 0)
+        {
+            int randomNumber;
+            Random rand = new Random();
+            randomNumber = rand.nextInt(size);
+            game.currentPlayer().putDisk(rightFields.get(randomNumber));
+            
+            Undo undo = new Undo();
+            undo.addedField = new BoardField(rightFields.get(randomNumber).getRow(), rightFields.get(randomNumber).getCol());
+            undo.turnedFields = new ArrayList<BoardField>();
+            for (BoardField turnedField : game.currentPlayer().turnedFields)
+                undo.turnedFields.add(turnedField);
+
+            game.currentPlayer().emptyList();
+            gameStack.push(undo);
+                    
+            game.nextPlayer();
+                    
+            return;
+        }
+        else
+        {
+            String msg = game.currentPlayer().name + " has no moves!";
+            if (game.whiteDisks + game.blackDisks != this.size*this.size - 1) // keby nahodou posledny
+                JOptionPane.showMessageDialog(null, msg);
+            
+            game.nextPlayer();
+        }
+        
+        
+    }
     private void BoardGameUndoButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BoardGameUndoButtonMouseClicked
-        gameStack.pop();
-        this.game = (Game)gameStack.peek();
-        System.out.println("d");
+        if (game.PCplaying)
+        {
+            Undo undoPC = (Undo)gameStack.pop();
+            game.getBoard().getField(undoPC.addedField.getRow(), undoPC.addedField.getCol()).deleteDisk();
+            for (BoardField turnField : undoPC.turnedFields)
+            {
+                game.getBoard().getField(turnField.getRow(), turnField.getCol()).getDisk().turn();
+            }
+        }
+        
+        Undo undo = (Undo)gameStack.pop();
+        game.getBoard().getField(undo.addedField.getRow(), undo.addedField.getCol()).deleteDisk();
+        for (BoardField turnField : undo.turnedFields)
+        {
+            game.getBoard().getField(turnField.getRow(), turnField.getCol()).getDisk().turn();
+        }
+        
+        if (!game.PCplaying)
+            game.nextPlayer();
+        
+        game.countDicks();
+        Player1Score.setText(String.valueOf(game.whiteDisks));
+        Player2Score.setText(String.valueOf(game.blackDisks));
+        
     }//GEN-LAST:event_BoardGameUndoButtonMouseClicked
 
     private void BoardGameMenuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoardGameMenuItemExitActionPerformed
@@ -359,9 +486,9 @@ public class GameBoard extends javax.swing.JFrame implements Runnable{
         new NewJFrame().setVisible(true);
     }//GEN-LAST:event_BoardGameMenuItemNewGameActionPerformed
 
-    private void BoardGameMenuItemLoadGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoardGameMenuItemLoadGameActionPerformed
-        
-    }//GEN-LAST:event_BoardGameMenuItemLoadGameActionPerformed
+    private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_ExitButtonActionPerformed
 
     /*
      * counter the scores and return the winner
@@ -378,11 +505,10 @@ public class GameBoard extends javax.swing.JFrame implements Runnable{
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem BoardGameMenuItemExit;
-    private javax.swing.JMenuItem BoardGameMenuItemLoadGame;
     private javax.swing.JMenuItem BoardGameMenuItemNewGame;
-    private javax.swing.JMenuItem BoardGameMenuItemSaveGame;
     private javax.swing.JButton BoardGameSaveButton;
     private javax.swing.JButton BoardGameUndoButton;
+    private javax.swing.JButton ExitButton;
     private javax.swing.JMenuBar GameBoardMenuBar;
     private javax.swing.JMenu GameBoardMenuFile;
     private javax.swing.JPanel Player1JPanel;
@@ -394,6 +520,8 @@ public class GameBoard extends javax.swing.JFrame implements Runnable{
     private javax.swing.JPanel PlayingBoard;
     private javax.swing.JLabel Score1;
     private javax.swing.JLabel Score2;
+    private javax.swing.JLabel TurnLabel;
+    private javax.swing.JLabel TurnPlayerLabel;
     // End of variables declaration//GEN-END:variables
 
     @Override

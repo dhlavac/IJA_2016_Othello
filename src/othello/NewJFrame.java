@@ -480,6 +480,13 @@ public class NewJFrame extends javax.swing.JFrame implements Runnable{
 
             game.addPlayer(player1);
             game.addPlayer(player2);
+            
+            if (PlayerComputer.isSelected())
+            {
+                game.PCplaying = true;
+                if (DifficultyRadioButtonHard.isSelected())
+                    game.diffEasy = false;
+            }
 
             GameBoard NewBoard = new GameBoard(game);
             NewBoard.setVisible(true);
@@ -522,6 +529,8 @@ public class NewJFrame extends javax.swing.JFrame implements Runnable{
         loadedGame.whitePlayer = loadedSave.whitePlayer;
         loadedGame.whichPlayer = loadedSave.whichPlayer;
         loadedGame.blackPlayer = loadedSave.blackPlayer;
+        loadedGame.PCplaying = loadedSave.PCplaying;
+        loadedGame.diffEasy = loadedSave.diffEasy;
         loadedGame.board = new Board(loadedGame.board.getRules());
         
         for (int i = 0; i < loadedSave.board.getSize(); i++)
