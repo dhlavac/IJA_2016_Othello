@@ -15,9 +15,6 @@ public interface Field {
     int getCol();
     
     int getRow();
-    //boolean canPutDisk(Disk disk);
-
-   // boolean isEmpty();
 
     Disk getDisk();
     

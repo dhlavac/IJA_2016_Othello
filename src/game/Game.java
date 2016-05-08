@@ -21,44 +21,32 @@ public class Game implements Serializable
 
     /**
      * Konstruktor vytvarajuci novu hru
-     * @author Michal Durista (xduris04)
-     * @author Dominik Hlavac Duran (xhlava42)
      * @param board Hracia doska
-     */
-    
+     */  
     public Game(Board board)
     {
         this.board = board;
     }
     
     /**
-     * Funkcia na zistenie hráča ktorý je na rade
-     * @author Michal Durista (xduris04)
-     * @author Dominik Hlavac Duran (xhlava42)
-     * @return Vracia bud whitePlayer alebo blackPlayer podla 
-     * toho ktorý je na tahu
+     * Metoda na zistenie hráča ktorý je na rade
+     * @return hrac, ktory je na rade
      */
-
     public Player currentPlayer(){
         return (whichPlayer) ?  blackPlayer : whitePlayer;
     }
     
     /**
-     * Funkcia na zistenie hráča ktorý je další na rade
-     * @author Michal Durista (xduris04)
-     * @author Dominik Hlavac Duran (xhlava42)
-     * @return Vracia bud hráča ktorý je další na ťahu
+     * Metoda na zistenie hráča ktorý je další na rade
+     * @return hrac dalsi na rade
      */
-    
     public Player nextPlayer(){
         whichPlayer = !whichPlayer;
         return currentPlayer();
     }
     
     /**
-     * Funkcia vracia hracú plochu
-     * @author Michal Durista (xduris04)
-     * @author Dominik Hlavac Duran (xhlava42)
+     * Metoda vracia hracú plochu
      * @return Hracia plocha board
      */
     public Board getBoard()
@@ -69,10 +57,8 @@ public class Game implements Serializable
     /**
      * Funkcia na pridanie nového hráča do hry a jeho inicializáciu
      * na hracej ploche
-     * @author Michal Durista (xduris04)
-     * @author Dominik Hlavac Duran (xhlava42)
      * @param player Hráč
-     * @return vracia true ak sa podarilo pridať nového hráča inak vracia false
+     * @return true ak sa podarilo pridať nového hráča inak vracia false
      */
 
     public boolean addPlayer(Player player)
@@ -98,12 +84,9 @@ public class Game implements Serializable
     }
     
     /**
-     * Funkcia na spočítanie aktualneho počtu dikov jednotlivých hráčov,
+     * Metoda na spočítanie aktualneho počtu dikov jednotlivých hráčov,
      * hodnoty vracia v premennych whiteDisks a blackDisks
-     * @author Michal Durista (xduris04)
-     * @author Dominik Hlavac Duran (xhlava42)
-     */
-    
+     */   
     public void countDicks()
     {
         int tmpWhiteDisks = 0;

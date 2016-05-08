@@ -10,85 +10,64 @@ import java.io.Serializable;
 public class BorderField implements Field, Serializable {
 
     /**
-     * Funkcia nerobí nič
-     * @author Michal Durista (xduris04)
-     * @author Dominik Hlavac Duran (xhlava42)
+     * Metoda nerobí nič
      * @param dirs Suradnice
      * @param field Pole hracej plochy 
      */
-
     public void addNextField (Direction dirs, Field field)
     {
     }
 
     /**
-     * Funkcia vracia null
-     * @author Michal Durista (xduris04)
-     * @author Dominik Hlavac Duran (xhlava42)
+     * Metoda vracia null
      * @param dirs Suradnice
-     * @return Vracia null
+     * @return null
      */
-
     public Field nextField (Direction dirs)
     {
         return null;
     }
 
     /**
-     * Funkcia vracia false
-     * @author Michal Durista (xduris04)
-     * @author Dominik Hlavac Duran (xhlava42)
+     * Metoda vracia false
      * @param disk Disk
-     * @return Vracia false
+     * @return false
      */
-
     public boolean putDisk (Disk disk)
     {
         return false;
     }
 
     /**
-     * Funkcia vracia null
-     * @author Michal Durista (xduris04)
-     * @author Dominik Hlavac Duran (xhlava42)
-     * @return Vracia null
+     * Metoda vracia null
+     * @return null
      */
-
     public Disk getDisk ()
     {
         return null;
     }
 
     /**
-     * Funkcia vracia -1
-     * @author Michal Durista (xduris04)
-     * @author Dominik Hlavac Duran (xhlava42)
-     * @return Vracia -1
+     * Metoda vracia -1
+     * @return -1
      */
-    
     public int getCol()
     {
         return -1;
     }
 
     /**
-     * Funkcia vracia -1
-     * @author Michal Durista (xduris04)
-     * @author Dominik Hlavac Duran (xhlava42)
-     * @return Vracia -1
+     * Metoda vracia -1
+     * @return -1
      */
-    
     public int getRow()
     {
         return -1;
     }
 
     /**
-     * Funkcia maze disk
-     * @author Michal Durista (xduris04)
-     * @author Dominik Hlavac Duran (xhlava42)
-     */
-    
+     * Metoda nerobi nic
+     */   
     public void deleteDisk()
     {
     }

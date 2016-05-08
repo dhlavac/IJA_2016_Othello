@@ -25,11 +25,12 @@ import javax.swing.JOptionPane;
  */
 public class NewJFrame extends javax.swing.JFrame implements Runnable{
 
-    /**
-     * Creates new form NewJFrame
-     */
     public String player1name, player2name;
+    String loadedFile;
     
+    /**
+     * Konstruktor
+     */
     public NewJFrame() {
         initComponents();
         DifficultyLabel.setVisible(false);
@@ -37,8 +38,6 @@ public class NewJFrame extends javax.swing.JFrame implements Runnable{
         DifficultyRadioButtonHard.setVisible(false);
     }
     
-    String loadedFile;
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -409,21 +408,37 @@ public class NewJFrame extends javax.swing.JFrame implements Runnable{
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    /**
+     * Nova hra
+     * @param evt 
+     */
     private void NewGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewGameButtonActionPerformed
         NewGameMenu.setVisible(true);
         StartMenu.setVisible(false);
     }//GEN-LAST:event_NewGameButtonActionPerformed
 
+    /**
+     * Nacitat hru
+     * @param evt 
+     */
     private void LoadGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadGameButtonActionPerformed
         LoadMenu.setVisible(true);
         StartMenu.setVisible(false);
     }//GEN-LAST:event_LoadGameButtonActionPerformed
 
+    /**
+     * Ukoncit hru
+     * @param evt 
+     */
     private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
         System.exit(0);
     }//GEN-LAST:event_ExitButtonActionPerformed
 
+    /**
+     * Hra clovek
+     * @param evt 
+     */
     private void PlayerHumanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PlayerHumanActionPerformed
         if (PlayerHuman.isSelected()) {
             Player2Name.setEnabled(true);
@@ -434,6 +449,10 @@ public class NewJFrame extends javax.swing.JFrame implements Runnable{
         }
     }//GEN-LAST:event_PlayerHumanActionPerformed
 
+    /**
+     * Hra pocitac
+     * @param evt 
+     */
     private void PlayerComputerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PlayerComputerActionPerformed
         if (PlayerComputer.isSelected()) {
             Player2Name.setEnabled(false);
@@ -444,22 +463,38 @@ public class NewJFrame extends javax.swing.JFrame implements Runnable{
         }
     }//GEN-LAST:event_PlayerComputerActionPerformed
 
+    /**
+     * Ukonci hru
+     * @param evt 
+     */
     private void MenuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemExitActionPerformed
         System.exit(0);
     }//GEN-LAST:event_MenuItemExitActionPerformed
 
+    /**
+     * Nacita hru
+     * @param evt 
+     */
     private void MenuItemLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemLoadActionPerformed
         NewGameMenu.setVisible(false);
         StartMenu.setVisible(false);
         LoadMenu.setVisible(true);
     }//GEN-LAST:event_MenuItemLoadActionPerformed
 
+    /**
+     * Nova hra
+     * @param evt 
+     */
     private void MenuItemNewGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemNewGameActionPerformed
         NewGameMenu.setVisible(true);
         StartMenu.setVisible(false);
         LoadMenu.setVisible(false);
     }//GEN-LAST:event_MenuItemNewGameActionPerformed
 
+    /**
+     * Spusti novu hru
+     * @param evt 
+     */
     private void PlayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PlayButtonActionPerformed
         if ((PlayerComputer.isSelected() || PlayerHuman.isSelected()) && (!Player1Name.getText().equals("") && !Player2Name.getText().equals("") ) ) {
             
@@ -490,9 +525,6 @@ public class NewJFrame extends javax.swing.JFrame implements Runnable{
 
             GameBoard NewBoard = new GameBoard(game);
             NewBoard.setVisible(true);
-            
-           /* Thread myThread = new Thread(new NewJFrame());
-            myThread.start();*/
         }
         else {
             JOptionPane.showMessageDialog(null, "Error you must choose all options");
@@ -500,6 +532,10 @@ public class NewJFrame extends javax.swing.JFrame implements Runnable{
         
     }//GEN-LAST:event_PlayButtonActionPerformed
     
+    /**
+     * Save ktory chceme nacitat
+     * @param evt 
+     */
     private void FileToLoadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FileToLoadMouseClicked
         JFileChooser LoadChooser = new JFileChooser();
         LoadChooser.showOpenDialog(null);
@@ -509,6 +545,10 @@ public class NewJFrame extends javax.swing.JFrame implements Runnable{
         this.loadedFile = filename;
     }//GEN-LAST:event_FileToLoadMouseClicked
 
+    /**
+     * Nacitanie ulozenej hry
+     * @param evt 
+     */
     private void LoadButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoadButtonMouseClicked
         Save loadedSave = null;
         close();
@@ -545,6 +585,10 @@ public class NewJFrame extends javax.swing.JFrame implements Runnable{
         // System.out.println(loadedGame.tmp);  // test na load
     }//GEN-LAST:event_LoadButtonMouseClicked
 
+    /**
+     * Zistenie zadanej velkosti hracej dosky
+     * @return 
+     */
     private int getSizeForBoard()
     {
         if (RadioButtonSize6.isSelected())
@@ -592,12 +636,7 @@ public class NewJFrame extends javax.swing.JFrame implements Runnable{
                 new NewJFrame().setVisible(true);
                 
             }
-        });
-        
-        /*Thread pica = new Thread();
-        pica.start();*/
-        
-        
+        });        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -648,26 +687,5 @@ public class NewJFrame extends javax.swing.JFrame implements Runnable{
 
     @Override
     public void run() {
-           /* player1name = Player1Name.getText();
-            player2name = Player2Name.getText();
-            ReversiRules rules = new ReversiRules(getSizeForBoard());
-            Board board = new Board(rules);
-            Game game = new Game(board);
-            
-            Player player1 = new Player(true);  // biely     
-            Player player2 = new Player(false);  // cierny
-            
-            player1.init(board);
-            player2.init(board);
-            player1.name = player1name;
-            player2.name = player2name;
-
-            game.addPlayer(player1);
-            game.addPlayer(player2);
-
-            GameBoard NewBoard = new GameBoard(game);
-            NewBoard.setVisible(true);*/
-    }
-    
-    
+    }     
 }

@@ -34,15 +34,16 @@ import javax.swing.JPanel;
  */
 public class GameBoard extends javax.swing.JFrame implements Runnable{
 
-    /**
-     * Creates new form GameBoard
-     */
     public int size;
     Game game;
     JPanel boardPanel;
     List<Cell> cellList = new ArrayList<Cell>();
     Stack<Undo> gameStack = new Stack<Undo>();
     
+    /**
+     * Konstruktor vytvara samotnu hru aj s GUI
+     * @param game 
+     */
     public GameBoard(Game game) {
         initComponents();
         this.size = game.getBoard().getSize();
@@ -274,6 +275,10 @@ public class GameBoard extends javax.swing.JFrame implements Runnable{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Metoda ktora uklada aktualny stav hry
+     * @param evt 
+     */
     private void BoardGameSaveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BoardGameSaveButtonMouseClicked
         JFileChooser f = new JFileChooser();
         f.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -291,7 +296,9 @@ public class GameBoard extends javax.swing.JFrame implements Runnable{
         }
     }//GEN-LAST:event_BoardGameSaveButtonMouseClicked
 
-    
+    /**
+     * Inicializuje GUI
+     */
     public void initializeGui() {
         GridBagConstraints box = new GridBagConstraints();
         for(int row = 0; row < size; row++) {
@@ -336,7 +343,13 @@ public class GameBoard extends javax.swing.JFrame implements Runnable{
         }
        
     }
-        
+     
+    /**
+     * Metoda ktora hovori, co sa ma udiat po kliknuti na jedno policko
+     * @param game aktualna hra
+     * @param row riadok policka
+     * @param col stlpec policka
+     */
     public void cellClicked(Game game, int row, int col)
     {
         Player currentPlayer = game.currentPlayer();
@@ -381,6 +394,11 @@ public class GameBoard extends javax.swing.JFrame implements Runnable{
         repaint();
     }
     
+    /**
+     * Jednoduchy algoritmus, ktory zaradom prechadza policka a vlozi
+     * disk na prve mozne policko
+     * @param game aktualna hra
+     */
     private void easyPC(Game game)
     {
         for (int i = 1; i <= size; i++)
@@ -409,6 +427,10 @@ public class GameBoard extends javax.swing.JFrame implements Runnable{
         game.nextPlayer();
     }
     
+    /**
+     * Jednoduchy algoritmus, ktory vklada disk na nahodne mozne policko
+     * @param game aktualna hra
+     */
     private void hardPC(Game game)
     {
         List<Field> rightFields = new ArrayList<Field>();
@@ -448,9 +470,12 @@ public class GameBoard extends javax.swing.JFrame implements Runnable{
             
             game.nextPlayer();
         }
-        
-        
     }
+    
+    /**
+     * Metoda pre Undo
+     * @param evt 
+     */
     private void BoardGameUndoButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BoardGameUndoButtonMouseClicked
         if (game.PCplaying)
         {
@@ -478,20 +503,34 @@ public class GameBoard extends javax.swing.JFrame implements Runnable{
         
     }//GEN-LAST:event_BoardGameUndoButtonMouseClicked
 
+    /**
+     * Ukonci hru
+     * @param evt 
+     */
     private void BoardGameMenuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoardGameMenuItemExitActionPerformed
         System.exit(0);
     }//GEN-LAST:event_BoardGameMenuItemExitActionPerformed
 
+    /**
+     * Nova hra
+     * @param evt 
+     */
     private void BoardGameMenuItemNewGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoardGameMenuItemNewGameActionPerformed
         new NewJFrame().setVisible(true);
     }//GEN-LAST:event_BoardGameMenuItemNewGameActionPerformed
 
+    /**
+     * Ukonci hru
+     * @param evt 
+     */
     private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
         System.exit(0);
     }//GEN-LAST:event_ExitButtonActionPerformed
 
-    /*
-     * counter the scores and return the winner
+    /**
+     * Kontroluje koniec hry
+     * @param TotalBlack pocet ciernych kamenov
+     * @param TotalWhite pocet bielych kamenov
      */
     private void checkWin(int TotalBlack, int TotalWhite) {     
         if(TotalBlack + TotalWhite == (size*size) && TotalBlack > TotalWhite)

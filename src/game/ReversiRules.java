@@ -15,49 +15,37 @@ public class ReversiRules implements Rules, Serializable
     
     /**
      * Konstruktor nastavuje velkost hracej dosky
-     * @author Michal Durista (xduris04)
-     * @author Dominik Hlavac Duran (xhlava42)
      * @param size velkos hracej dosky
      */
-
     public ReversiRules(int size)
     {
         this.size = size;
     }
     
     /**
-     * Funkcia vracajúca velkosť hracej plochy
-     * @author Michal Durista (xduris04)
-     * @author Dominik Hlavac Duran (xhlava42)
+     * Metoda vracajúca velkosť hracej plochy
      * @return size Vracia velkosť hracej dosky
      */
-
     public int getSize()
     {
         return this.size;
     }
     
     /**
-     * Funkcia vracajúca počet diskov
-     * @author Michal Durista (xduris04)
-     * @author Dominik Hlavac Duran (xhlava42)
+     * Metoda vracajúca počet diskov
      * @return (size * size) /2
      */
-
     public int numberDisks()
     {
         return (this.size * this.size) / 2;
     }
     
     /**
-     * Funkcia vytvorý novú hraciu dosku
-     * @author Michal Durista (xduris04)
-     * @author Dominik Hlavac Duran (xhlava42)
+     * Metoda vytvorý hracie policko
      * @param row Počet riadkov
      * @param col Počet stlpcov
-     * @return boardField vracia novovzniknutú hraciu dosku
+     * @return hracie policko
      */
-
     public BoardField createField(int row, int col)
     {
         BoardField boardField = new BoardField(row, col);

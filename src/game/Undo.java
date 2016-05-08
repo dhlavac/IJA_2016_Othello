@@ -6,13 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Trieda predstavujúca funkciu Undo
+ * Trieda pre nacitanie potrebnych dat pre Undo
  * @author Michal Durista (xduris04)
  * @author Dominik Hlavac Duran (xhlava42)
  */
 public class Undo {
     public BoardField addedField;
     public List<BoardField> turnedFields = new ArrayList<BoardField>();
-    
-    
 }

@@ -18,21 +18,37 @@ public class Player implements Serializable
     public String name;
     public List<BoardField> turnedFields = new ArrayList<BoardField>();
 
+    /**
+     * Konstruktor, nastavi farbu hraca
+     * @param isWhite 
+     */
     public Player(boolean isWhite)
     {
         this.isWhite = isWhite;
     }
 
+    /**
+     * Zistuje farbu hraca
+     * @return farba hraca
+     */
     public boolean isWhite()
     {
         return this.isWhite;
     }
     
+    /**
+     * Vymaze zoznam otocenych kamenov
+     */
     public void emptyList()
     {
         turnedFields.clear();
     }
 
+    /**
+     * Zistuje, ci sa da na zadane policko polozit kamen
+     * @param field zadane policko
+     * @return uspech operacie
+     */
     public boolean canPutDisk(Field field)
     {
         Field tmpField;    
@@ -72,12 +88,21 @@ public class Player implements Serializable
         return end;
     }
 
+    /**
+     * Zistuje, ci ma hrac este nejake kamene
+     * @return 
+     */
     public boolean emptyPool()
     {
         boolean isEmpty = (disksCount == 0);
         return isEmpty;
     }
 
+    /**
+     * Polozi kamen na zadane policko
+     * @param field zadane policko
+     * @return uspech operacie
+     */
     public boolean putDisk(Field field)
     {
         List<Field.Direction> rigtDirections = new ArrayList<Field.Direction>();
@@ -139,6 +164,10 @@ public class Player implements Serializable
     }
 
 
+    /**
+     * Inicializuje 4 kamene v strede
+     * @param board hracia doska
+     */
     public void init(Board board){
         disksCount = board.getRules().numberDisks();
         if (isWhite)
@@ -153,6 +182,10 @@ public class Player implements Serializable
         }
     }
 
+    /**
+     * Farba hraca
+     * @return farba hraca
+     */
     public String toString()
     {
         return isWhite ? "white" : "black";

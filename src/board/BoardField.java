@@ -16,12 +16,9 @@ public class BoardField implements Field, Serializable {
 
     /**
      * Konstruktor Board Field nastaví hodnoty row a col
-     * @author Michal Durista (xduris04)
-     * @author Dominik Hlavac Duran (xhlava42)
      * @param row Cislo riadku
      * @param col Cislo stplca
      */
-
     public BoardField(int row, int col)
     {
         this.row = row;
@@ -29,29 +26,28 @@ public class BoardField implements Field, Serializable {
     }
 
     /**
-     * Funkcia  vracia stlpec 
-     * @author Michal Durista (xduris04)
-     * @author Dominik Hlavac Duran (xhlava42)
+     * Metoda vracia stlpec 
      * @return Vracia cislo stlpca
      */
-    
     public int getCol()
     {
         return this.col;
     }
 
      /**
-     * Funkcia  vracia riadok 
-     * @author Michal Durista (xduris04)
-     * @author Dominik Hlavac Duran (xhlava42)
-     * @return Vracia cislo riadku
+     * Metoda  vracia riadok 
+     * @return  cislo riadku
      */
-    
     public int getRow()
     {
         return this.row;
     }
 
+    /**
+     * Metoda prida okolo jedneho policka pomocne policka pre dalsie vypocty
+     * @param dirs smer do ktoreho chceme pridat policko
+     * @param field policko, ktore chceme pridat
+     */
     public void addNextField(Field.Direction dirs, Field field)
     {
         switch(dirs)
@@ -90,6 +86,11 @@ public class BoardField implements Field, Serializable {
         }
     }
 
+    /**
+     * Metoda vracia pomocne policka podla smeru
+     * @param dirs smer v ktorom chceme najst policko
+     * @return pomocne policko urcene smerom
+     */
     public Field nextField(Field.Direction dirs){
         switch(dirs){
             case D:
@@ -121,14 +122,11 @@ public class BoardField implements Field, Serializable {
     }
 
     /**
-     * Funkcia vkladajuca hracie disky na policka plochy podla to ci 
+     * Metoda vkladajuca hracie disky na policka plochy podla to ci 
      * je zadané pole prazdne
-     * @author Michal Durista (xduris04)
-     * @author Dominik Hlavac Duran (xhlava42)
      * @param disk Hrací disk  hráča
-     * @return Vracia true a priradi disk ak je pole praznde inak vracia false
+     * @return true a priradi disk ak je pole praznde inak vracia false
      */
-
     public boolean putDisk(Disk disk)
     {
         if (this.disk == null)
@@ -143,12 +141,9 @@ public class BoardField implements Field, Serializable {
     }
 
     /**
-     * Funkcia  vracia disk 
-     * @author Michal Durista (xduris04)
-     * @author Dominik Hlavac Duran (xhlava42)
-     * @return Vracia disk ak nieje pole praznde inak vracia null
+     * Metoda vracia disk 
+     * @return disk ak nieje pole praznde inak vracia null
      */
-
     public Disk getDisk()
     {
         if (this.disk != null)
@@ -161,12 +156,8 @@ public class BoardField implements Field, Serializable {
     }
 
     /**
-     * Funkcia  vymaže disk 
-     * @author Michal Durista (xduris04)
-     * @author Dominik Hlavac Duran (xhlava42)
-     * @return Vracia disk ak nieje pole praznde inak vracia null
-     */
-    
+     * Metoda vymaže disk 
+     */    
     public void deleteDisk()
     {
         this.disk = null;

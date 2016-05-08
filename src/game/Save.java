@@ -21,12 +21,9 @@ public class Save implements Serializable{
     
     /**
      * Konstruktor ukladá aktualne rozohratú hru aj so všetkými parametrami
-     * @author Michal Durista (xduris04)
-     * @author Dominik Hlavac Duran (xhlava42)
      * @param game Hra obsahujúca všetky informacie vrátane hráčov,
      * hracej dosky, počtu diskov atd.
-     */
-    
+     */  
     public Save(Game game)
     {
         blackPlayer = game.blackPlayer;

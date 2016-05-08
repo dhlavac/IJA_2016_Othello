@@ -15,8 +15,6 @@ public class Board implements Serializable
 
     /**
      * Konstruktor vytvarajuci hraciu dosku podla zadaných pravidiel
-     * @author Michal Durista (xduris04)
-     * @author Dominik Hlavac Duran (xhlava42)
      * @param rules pravidla pre vznik hracej dosky
      */
 
@@ -75,9 +73,7 @@ public class Board implements Serializable
 
 
     /**
-     * Funkcia vracajuca jednotlive polia hracej dosky
-     * @author Michal Durista (xduris04)
-     * @author Dominik Hlavac Duran (xhlava42)
+     * Metoda vracajuca jednotlive polia hracej dosky
      * @param row Riadok Boardu
      * @param col Stlpec Boardu
      * @return field Vracia policko hracej dosky na zadanom riadku a stlpci.
@@ -96,9 +92,7 @@ public class Board implements Serializable
     }
 
     /**
-     * Funkcia priradí vytvorené pole na suradnice na hracej doske
-     * @author Michal Durista (xduris04)
-     * @author Dominik Hlavac Duran (xhlava42)
+     * Metoda priradí vytvorené pole na suradnice na hracej doske
      * @param row Riadok Boardu
      * @param col Stlpec Boardu
      * @param field Policko hracej plochy
@@ -111,9 +105,7 @@ public class Board implements Serializable
 
 
     /**
-     * Funkcia vracia pravidla hracej dosky
-     * @author Michal Durista (xduris04)
-     * @author Dominik Hlavac Duran (xhlava42)
+     * Metoda vracia pravidla hracej dosky
      */
 
     public Rules getRules()
@@ -122,9 +114,7 @@ public class Board implements Serializable
     }
 
     /**
-     * Funkcia vracia velkost hracej dosky
-     * @author Michal Durista (xduris04)
-     * @author Dominik Hlavac Duran (xhlava42)
+     * Metoda vracia velkost hracej dosky
      */
 
     public int getSize ()

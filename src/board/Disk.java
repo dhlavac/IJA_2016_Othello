@@ -12,12 +12,9 @@ public class Disk implements Serializable
     private boolean isWhite;
 
     /**
-     * Funkcia nastavuje hodnotu isWhite ktora reprezentuje farbu diskov 
-     * @author Michal Durista (xduris04)
-     * @author Dominik Hlavac Duran (xhlava42)
+     * Konstruktor nastavuje hodnotu isWhite ktora reprezentuje farbu diskov 
      * @param isWhite Farba diskov
      */
-
     public Disk(boolean isWhite)
     {
         this.isWhite = isWhite;
@@ -25,23 +22,17 @@ public class Disk implements Serializable
 
 
     /**
-     * Funkcia obracia farby diskov
-     * @author Michal Durista (xduris04)
-     * @author Dominik Hlavac Duran (xhlava42)
+     * Metoda obracia farby diskov
      */
-
     public void turn()
     {
         this.isWhite = !this.isWhite;
     }
 
     /**
-     * Funkcia vracia farby diskov
-     * @author Michal Durista (xduris04)
-     * @author Dominik Hlavac Duran (xhlava42)
-     * @return isWhite  Vracia farbu disku
+     * Metoda vracia farby diskov
+     * @return farba disku
      */
-
     public boolean isWhite()
     {
         return this.isWhite;
