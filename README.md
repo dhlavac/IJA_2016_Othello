@@ -32,11 +32,11 @@ java -jar othello-client.jar
 ##Rules
 [General rules](https://en.wikipedia.org/wiki/Reversi) of the game.
 The application supports:
-- option choose the board size (6x6, 8x8, 10x10, 12x12)
-- save and load a game
-- undo operation
+- choose the board size (6x6, 8x8, 10x10, 12x12)
 - choose an oponnent (human or computer)
-- frozing fields - not suported yet
+- save and load the game
+- undo operation
+- frozing stones - not suported yet
 
 
 ## Authors
